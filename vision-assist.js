@@ -47,30 +47,30 @@ class VisionAssistAI {
             <div class="vision-assist-content">
                 <div class="control-group">
                     <h3>Text Reading</h3>
-                    <button id="read-page-btn" class="control-btn">📖 Read Page</button>
-                    <button id="read-selected-btn" class="control-btn">📄 Read Selected</button>
-                    <button id="stop-reading-btn" class="control-btn">⏹️ Stop Reading</button>
+                    <button id="read-page-btn" class="control-btn">Read Page</button>
+                    <button id="read-selected-btn" class="control-btn">Read Selected</button>
+                    <button id="stop-reading-btn" class="control-btn">Stop Reading</button>
                 </div>
-                
+
                 <div class="control-group">
                     <h3>Visual Adjustments</h3>
-                    <button id="high-contrast-btn" class="control-btn">🎨 High Contrast</button>
+                    <button id="high-contrast-btn" class="control-btn">High Contrast</button>
                     <div class="slider-group">
                         <label for="font-size-slider">Font Size: <span id="font-size-value">100%</span></label>
                         <input type="range" id="font-size-slider" min="100" max="200" value="100">
                     </div>
                 </div>
-                
+
                 <div class="control-group">
                     <h3>Navigation</h3>
-                    <button id="describe-images-btn" class="control-btn">🖼️ Describe Images</button>
-                    <button id="highlight-links-btn" class="control-btn">🔗 Highlight Links</button>
-                    <button id="keyboard-nav-btn" class="control-btn">⌨️ Keyboard Navigation</button>
+                    <button id="describe-images-btn" class="control-btn">Describe Images</button>
+                    <button id="highlight-links-btn" class="control-btn">Highlight Links</button>
+                    <button id="keyboard-nav-btn" class="control-btn">Keyboard Navigation</button>
                 </div>
-                
+
                 <div class="control-group">
                     <h3>Voice Commands</h3>
-                    <button id="voice-commands-btn" class="control-btn">🎤 Voice Commands</button>
+                    <button id="voice-commands-btn" class="control-btn">Voice Commands</button>
                     <div id="voice-status" class="voice-status">Off</div>
                 </div>
                 

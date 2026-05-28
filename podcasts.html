@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcasts — Light Beyond Sight</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main" class="skip-nav">Skip to main content</a>
+
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-banner-inner">
+            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
+            <a href="contact.html" class="donation-banner-link">Donate</a>
+            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Light Beyond Sight</h1>
+                </div>
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission</a></li>
+                    <li><a href="impact.html">Impact</a></li>
+                    <li><a href="podcasts.html" class="active">Podcasts</a></li>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="nav-login">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="reveal">Podcasts</h1>
+                <p class="subtitle reveal reveal-delay-1">Audio-first health education for the blind and visually impaired community</p>
+            </div>
+        </section>
+
+        <section class="podcasts-section">
+            <div class="container">
+
+                <!-- Admin: Add Episode button (shown only when logged in as admin) -->
+                <div class="admin-bar" id="podcastAdminBar" style="display:none;">
+                    <button class="btn btn-dark" id="addEpisodeBtn">+ Add Episode</button>
+                </div>
+
+                <!-- Admin: Create Episode form (hidden by default) -->
+                <div class="admin-form" id="addEpisodeForm" style="display:none;">
+                    <h3>Add a Podcast Episode</h3>
+                    <form id="episodeForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="epDate">Publish Date *</label>
+                                <input type="date" id="epDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="epNumber">Episode Number</label>
+                                <input type="text" id="epNumber" placeholder="e.g. Ep. 12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="epTitle">Title *</label>
+                            <input type="text" id="epTitle" placeholder="Episode title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="epDescription">Description *</label>
+                            <textarea id="epDescription" rows="4" placeholder="Episode summary..." required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="epDuration">Duration</label>
+                                <input type="text" id="epDuration" placeholder="e.g. 28 min">
+                            </div>
+                            <div class="form-group">
+                                <label for="epLink">Listen Link</label>
+                                <input type="text" id="epLink" placeholder="e.g. https://...">
+                            </div>
+                        </div>
+                        <div class="cta-buttons" style="justify-content:flex-start; gap:0.75rem; margin-top:0.5rem;">
+                            <button type="submit" class="btn btn-dark">Publish Episode</button>
+                            <button type="button" class="btn btn-outline" id="cancelEpisodeBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Episodes rendered here by JS -->
+                <div class="podcast-grid" id="podcastGrid" style="display:none;"></div>
+                <div class="podcasts-empty" id="podcastsEmpty" style="display:none;">
+                    <p>No episodes yet. Check back soon.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Light Beyond Sight</h2>
+                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Organization</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission &amp; Vision</a></li>
+                    <li><a href="impact.html">Our Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
+            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="vision-assist.js"></script>
+    <script>
+    (function () {
+        var isAdmin = window.LBSAuth && window.LBSAuth.isAdmin();
+
+        if (isAdmin) {
+            document.getElementById('podcastAdminBar').style.display = 'flex';
+        }
+
+        function esc(str) {
+            var d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        function fmtDate(str) {
+            try {
+                var d = new Date(str + 'T00:00:00');
+                return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            } catch (e) { return str; }
+        }
+
+        function renderEpisodes() {
+            var episodes = window.LBSPodcasts ? window.LBSPodcasts.get() : [];
+            var grid  = document.getElementById('podcastGrid');
+            var empty = document.getElementById('podcastsEmpty');
+
+            if (!episodes.length) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.style.display  = 'grid';
+
+            grid.innerHTML = episodes.map(function (ep) {
+                var deleteBtn = isAdmin
+                    ? '<button class="news-delete-btn" data-id="' + ep.id + '">Remove</button>'
+                    : '';
+                var episodeNum = ep.number
+                    ? '<span class="podcast-ep-number">' + esc(ep.number) + '</span>'
+                    : '';
+                var duration = ep.duration
+                    ? '<span class="podcast-duration">' + esc(ep.duration) + '</span>'
+                    : '';
+                var listenLink = ep.link
+                    ? '<a href="' + esc(ep.link) + '" class="news-link" target="_blank" rel="noopener">Listen now</a>'
+                    : '';
+                return '<article class="podcast-card">' +
+                    '<div class="news-card-meta">' +
+                        '<span class="news-tag news-tag--news">Podcast</span>' +
+                        episodeNum +
+                        '<time datetime="' + esc(ep.date) + '">' + fmtDate(ep.date) + '</time>' +
+                        duration +
+                        deleteBtn +
+                    '</div>' +
+                    '<h3>' + esc(ep.title) + '</h3>' +
+                    '<p>' + esc(ep.description) + '</p>' +
+                    listenLink +
+                '</article>';
+            }).join('');
+
+            if (isAdmin) {
+                grid.querySelectorAll('.news-delete-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        if (confirm('Remove this episode?')) {
+                            window.LBSPodcasts.remove(btn.dataset.id);
+                            renderEpisodes();
+                        }
+                    });
+                });
+            }
+        }
+
+        var addEpisodeBtn    = document.getElementById('addEpisodeBtn');
+        var addEpisodeForm   = document.getElementById('addEpisodeForm');
+        var cancelEpisodeBtn = document.getElementById('cancelEpisodeBtn');
+
+        if (addEpisodeBtn) {
+            addEpisodeBtn.addEventListener('click', function () {
+                addEpisodeForm.style.display = addEpisodeForm.style.display === 'none' ? 'block' : 'none';
+                if (addEpisodeForm.style.display === 'block') addEpisodeBtn.textContent = '— Close';
+                else addEpisodeBtn.textContent = '+ Add Episode';
+            });
+        }
+
+        if (cancelEpisodeBtn) {
+            cancelEpisodeBtn.addEventListener('click', function () {
+                addEpisodeForm.style.display = 'none';
+                if (addEpisodeBtn) addEpisodeBtn.textContent = '+ Add Episode';
+            });
+        }
+
+        var episodeForm = document.getElementById('episodeForm');
+        if (episodeForm) {
+            episodeForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                window.LBSPodcasts.add({
+                    date:        document.getElementById('epDate').value,
+                    number:      document.getElementById('epNumber').value,
+                    title:       document.getElementById('epTitle').value,
+                    description: document.getElementById('epDescription').value,
+                    duration:    document.getElementById('epDuration').value,
+                    link:        document.getElementById('epLink').value
+                });
+                episodeForm.reset();
+                addEpisodeForm.style.display = 'none';
+                if (addEpisodeBtn) addEpisodeBtn.textContent = '+ Add Episode';
+                renderEpisodes();
+            });
+        }
+
+        renderEpisodes();
+    })();
+    </script>
+</body>
+</html>

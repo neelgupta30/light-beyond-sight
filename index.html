@@ -32,6 +32,7 @@
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="impact.html">Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
                     <li><a href="volunteer.html">Volunteer</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html" class="nav-login">Login</a></li>
@@ -111,53 +112,69 @@
                 </div>
             </div>
         </section>
-        <!-- NEWS & EVENTS
-             To add a new post, copy one <article class="news-card"> block below.
-             Change the tag class (news-tag--event / news-tag--news / news-tag--volunteer),
-             update the <time datetime="YYYY-MM-DD"> and visible date, then fill in the
-             heading, body text, and link href. -->
+
         <section class="news-events">
             <div class="container">
                 <div class="section-header reveal">
                     <h2>News &amp; Events</h2>
                     <p>Stay up to date with our latest programs, announcements, and community gatherings.</p>
                 </div>
-                <div class="news-grid">
 
-                    <article class="news-card reveal reveal-delay-1">
-                        <div class="news-card-meta">
-                            <span class="news-tag news-tag--event">Upcoming Event</span>
-                            <time datetime="2026-06-15">June 15, 2026</time>
+                <!-- Admin: Add Post button (shown only when logged in as admin) -->
+                <div class="admin-bar" id="newsAdminBar" style="display:none;">
+                    <button class="btn btn-dark" id="addPostBtn">+ Add Post</button>
+                </div>
+
+                <!-- Admin: Create Post form (hidden by default) -->
+                <div class="admin-form" id="addPostForm" style="display:none;">
+                    <h3>Create a Post</h3>
+                    <form id="postForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postType">Category *</label>
+                                <select id="postType" required>
+                                    <option value="news">News / Announcement</option>
+                                    <option value="event">Upcoming Event</option>
+                                    <option value="volunteer">Volunteer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="postDate">Date *</label>
+                                <input type="date" id="postDate" required>
+                            </div>
                         </div>
-                        <h3>Community Health Fair</h3>
-                        <p>Join us for our first accessible community health fair — featuring live Q&amp;As with medical professionals, free resources, and peer connection in a fully accessible in-person and virtual format.</p>
-                        <a href="contact.html" class="news-link">Learn more</a>
-                    </article>
-
-                    <article class="news-card reveal reveal-delay-2">
-                        <div class="news-card-meta">
-                            <span class="news-tag news-tag--news">Announcement</span>
-                            <time datetime="2026-05-10">May 10, 2026</time>
+                        <div class="form-group">
+                            <label for="postTitle">Title *</label>
+                            <input type="text" id="postTitle" placeholder="Post headline" required>
                         </div>
-                        <h3>Light Beyond Sight Officially Launches</h3>
-                        <p>We are proud to announce the official launch of Light Beyond Sight — a 501(c)(3) nonprofit dedicated to closing the health knowledge gap for the blind and visually impaired community.</p>
-                        <a href="mission.html" class="news-link">Read our mission</a>
-                    </article>
-
-                    <article class="news-card reveal reveal-delay-3">
-                        <div class="news-card-meta">
-                            <span class="news-tag news-tag--volunteer">Volunteer</span>
-                            <time datetime="2026-05-20">May 20, 2026</time>
+                        <div class="form-group">
+                            <label for="postBody">Body *</label>
+                            <textarea id="postBody" rows="4" placeholder="Post description..." required></textarea>
                         </div>
-                        <h3>Volunteer Applications Now Open</h3>
-                        <p>We are accepting applications for podcast production, community outreach, clinical review, and event support. Help us build something meaningful for a community that deserves better.</p>
-                        <a href="volunteer.html" class="news-link">Apply to volunteer</a>
-                    </article>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postLinkText">Link text</label>
+                                <input type="text" id="postLinkText" placeholder="e.g. Learn more">
+                            </div>
+                            <div class="form-group">
+                                <label for="postLink">Link URL</label>
+                                <input type="text" id="postLink" placeholder="e.g. contact.html">
+                            </div>
+                        </div>
+                        <div class="cta-buttons" style="justify-content:flex-start; gap:0.75rem; margin-top:0.5rem;">
+                            <button type="submit" class="btn btn-dark">Publish Post</button>
+                            <button type="button" class="btn btn-outline" id="cancelPostBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
 
+                <!-- Posts rendered here by JS -->
+                <div class="news-grid" id="newsGrid" style="display:none;"></div>
+                <div class="news-empty" id="newsEmpty" style="display:none;">
+                    <p>No posts yet. Check back soon.</p>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer>
@@ -172,6 +189,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="mission.html">Mission &amp; Vision</a></li>
                     <li><a href="impact.html">Our Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -191,5 +209,119 @@
 
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
+    <script>
+    (function () {
+        var isAdmin = window.LBSAuth && window.LBSAuth.isAdmin();
+
+        if (isAdmin) {
+            document.getElementById('newsAdminBar').style.display = 'flex';
+        }
+
+        function esc(str) {
+            var d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
+        }
+
+        function fmtDate(str) {
+            try {
+                var d = new Date(str + 'T00:00:00');
+                return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            } catch (e) { return str; }
+        }
+
+        function renderPosts() {
+            var posts = window.LBSPosts ? window.LBSPosts.get() : [];
+            var grid  = document.getElementById('newsGrid');
+            var empty = document.getElementById('newsEmpty');
+
+            if (!posts.length) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.style.display  = 'grid';
+
+            grid.innerHTML = posts.map(function (p) {
+                var tagClass = p.type === 'event'     ? 'news-tag--event'
+                             : p.type === 'volunteer' ? 'news-tag--volunteer'
+                             : 'news-tag--news';
+                var tagLabel = p.type === 'event'     ? 'Event'
+                             : p.type === 'volunteer' ? 'Volunteer'
+                             : 'News';
+                var deleteBtn = isAdmin
+                    ? '<button class="news-delete-btn" data-id="' + p.id + '">Remove</button>'
+                    : '';
+                var linkHtml = p.link
+                    ? '<a href="' + esc(p.link) + '" class="news-link">' + esc(p.linkText || 'Learn more') + '</a>'
+                    : '';
+                return '<article class="news-card">' +
+                    '<div class="news-card-meta">' +
+                        '<span class="news-tag ' + tagClass + '">' + tagLabel + '</span>' +
+                        '<time datetime="' + esc(p.date) + '">' + fmtDate(p.date) + '</time>' +
+                        deleteBtn +
+                    '</div>' +
+                    '<h3>' + esc(p.title) + '</h3>' +
+                    '<p>' + esc(p.body) + '</p>' +
+                    linkHtml +
+                '</article>';
+            }).join('');
+
+            if (isAdmin) {
+                grid.querySelectorAll('.news-delete-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        if (confirm('Remove this post?')) {
+                            window.LBSPosts.remove(btn.dataset.id);
+                            renderPosts();
+                        }
+                    });
+                });
+            }
+        }
+
+        // Toggle add-post form
+        var addPostBtn    = document.getElementById('addPostBtn');
+        var addPostForm   = document.getElementById('addPostForm');
+        var cancelPostBtn = document.getElementById('cancelPostBtn');
+
+        if (addPostBtn) {
+            addPostBtn.addEventListener('click', function () {
+                addPostForm.style.display = addPostForm.style.display === 'none' ? 'block' : 'none';
+                if (addPostForm.style.display === 'block') addPostBtn.textContent = '— Close';
+                else addPostBtn.textContent = '+ Add Post';
+            });
+        }
+
+        if (cancelPostBtn) {
+            cancelPostBtn.addEventListener('click', function () {
+                addPostForm.style.display = 'none';
+                if (addPostBtn) addPostBtn.textContent = '+ Add Post';
+            });
+        }
+
+        var postForm = document.getElementById('postForm');
+        if (postForm) {
+            postForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                window.LBSPosts.add({
+                    type:     document.getElementById('postType').value,
+                    date:     document.getElementById('postDate').value,
+                    title:    document.getElementById('postTitle').value,
+                    body:     document.getElementById('postBody').value,
+                    linkText: document.getElementById('postLinkText').value,
+                    link:     document.getElementById('postLink').value
+                });
+                postForm.reset();
+                addPostForm.style.display = 'none';
+                if (addPostBtn) addPostBtn.textContent = '+ Add Post';
+                renderPosts();
+            });
+        }
+
+        renderPosts();
+    })();
+    </script>
 </body>
 </html>

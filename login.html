@@ -32,6 +32,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="impact.html">Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
                     <li><a href="volunteer.html">Volunteer</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html" class="nav-login active">Login</a></li>
@@ -102,6 +103,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="mission.html">Mission &amp; Vision</a></li>
                     <li><a href="impact.html">Our Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -121,5 +123,62 @@
 
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
+    <script>
+    (function () {
+        // If already logged in, redirect to home
+        if (window.LBSAuth && window.LBSAuth.getUser()) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        function showMsg(form, text, isError) {
+            var existing = form.querySelector('.auth-message');
+            if (existing) existing.remove();
+            var msg = document.createElement('p');
+            msg.className = 'auth-message';
+            msg.style.cssText = 'margin-top:0.75rem;font-size:0.9rem;color:' + (isError ? '#c0392b' : '#1a7a4a') + ';font-weight:500;';
+            msg.textContent = text;
+            form.appendChild(msg);
+        }
+
+        var signupForm = document.querySelector('form.login-form:first-of-type');
+        var loginForm  = document.querySelectorAll('form.login-form')[1];
+
+        if (signupForm) {
+            signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var name     = document.getElementById('signup-name').value.trim();
+                var email    = document.getElementById('signup-email').value.trim();
+                var password = document.getElementById('signup-password').value;
+                if (!name || !email || !password) {
+                    showMsg(signupForm, 'Please fill in all required fields.', true);
+                    return;
+                }
+                if (password.length < 8) {
+                    showMsg(signupForm, 'Password must be at least 8 characters.', true);
+                    return;
+                }
+                window.LBSAuth.signup(name, email);
+                showMsg(signupForm, 'Account created. Redirecting...', false);
+                setTimeout(function () { window.location.href = 'index.html'; }, 800);
+            });
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var email    = document.getElementById('login-email').value.trim();
+                var password = document.getElementById('login-password').value;
+                if (!email || !password) {
+                    showMsg(loginForm, 'Please enter your email and password.', true);
+                    return;
+                }
+                var role = window.LBSAuth.login(email, password);
+                showMsg(loginForm, 'Signed in. Redirecting...', false);
+                setTimeout(function () { window.location.href = 'index.html'; }, 800);
+            });
+        }
+    })();
+    </script>
 </body>
 </html>
