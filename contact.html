@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Light Beyond Sight</title>
+    <title>Contact Us — Light Beyond Sight</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main" class="skip-nav">Skip to main content</a>
+
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-banner-inner">
+            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
+            <a href="contact.html" class="donation-banner-link">Donate</a>
+            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
                     <h1>Light Beyond Sight</h1>
                 </div>
-                <ul class="nav-menu">
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="impact.html">Impact</a></li>
@@ -25,11 +40,11 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <section class="page-header">
             <div class="container">
                 <h1 class="reveal">Contact Us</h1>
-                <p class="subtitle reveal reveal-delay-1">We'd love to hear from you</p>
+                <p class="subtitle reveal reveal-delay-1">We would love to hear from you</p>
             </div>
         </section>
 
@@ -38,20 +53,31 @@
                 <div class="contact-wrapper">
                     <div class="contact-info reveal">
                         <h2>Get in Touch</h2>
-                        <p>Have questions? Want to learn more about our programs? Interested in volunteering or partnering with us? We're here to help!</p>
-                        
+                        <p>Have questions? Want to learn more about our programs? Interested in volunteering or partnering with us? We are here to help.</p>
+
                         <div class="contact-details">
                             <div class="contact-item">
-                                <div class="contact-icon">📧</div>
+                                <div class="contact-item-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
                                 <div>
                                     <h3>Email</h3>
                                     <p>info@lightbeyondsight.org</p>
                                     <p>volunteer@lightbeyondsight.org</p>
                                 </div>
                             </div>
-                            
+
                             <div class="contact-item">
-                                <div class="contact-icon">🌐</div>
+                                <div class="contact-item-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="2" y1="12" x2="22" y2="12"/>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                    </svg>
+                                </div>
                                 <div>
                                     <h3>Social Media</h3>
                                     <p>Follow us on:</p>
@@ -73,36 +99,36 @@
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
                                 <input type="tel" id="phone" name="phone">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="subject">Subject *</label>
                                 <select id="subject" name="subject" required>
                                     <option value="">Select a subject...</option>
                                     <option value="volunteer">Volunteer Opportunities</option>
-                                    <option value="donation">Donations & Support</option>
+                                    <option value="donation">Donations &amp; Support</option>
                                     <option value="partnership">Partnership Inquiries</option>
                                     <option value="program">Program Information</option>
                                     <option value="general">General Inquiry</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="message">Message *</label>
                                 <textarea id="message" name="message" rows="6" required></textarea>
                             </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+
+                            <button type="submit" class="btn btn-dark btn-full">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -111,16 +137,35 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Light Beyond Sight. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="contact.html">Contact Us</a>
-                <a href="volunteer.html">Volunteer</a>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Light Beyond Sight</h2>
+                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Organization</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission &amp; Vision</a></li>
+                    <li><a href="impact.html">Our Impact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
+            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
+        </div>
     </footer>
+
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
 </body>
 </html>
-

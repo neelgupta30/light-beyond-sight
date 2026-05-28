@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light Beyond Sight</title>
+    <title>Light Beyond Sight — Accessible Health Education</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main" class="skip-nav">Skip to main content</a>
+
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-banner-inner">
+            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
+            <a href="contact.html" class="donation-banner-link">Donate</a>
+            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
                     <h1>Light Beyond Sight</h1>
                 </div>
-                <ul class="nav-menu">
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="mission.html">Mission</a></li>
                     <li><a href="impact.html">Impact</a></li>
@@ -25,7 +40,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <section class="hero">
             <div class="hero-with-image">
                 <div class="hero-content">
@@ -36,10 +51,18 @@
                         <a href="volunteer.html" class="btn btn-secondary">Get Involved</a>
                     </div>
                 </div>
-                <div class="img-wrap reveal reveal-delay-2">
-                    <div class="img-placeholder hero-img" aria-hidden="true">
-                        <span class="placeholder-icon">🎧</span>
-                        <span class="placeholder-label">Audio &amp; community</span>
+                <div class="hero-visual reveal reveal-delay-2" aria-hidden="true">
+                    <div class="hero-visual-inner">
+                        <svg viewBox="0 0 64 64" stroke-linecap="round">
+                            <line x1="8" y1="32" x2="8" y2="32"/>
+                            <line x1="16" y1="22" x2="16" y2="42"/>
+                            <line x1="24" y1="14" x2="24" y2="50"/>
+                            <line x1="32" y1="8" x2="32" y2="56"/>
+                            <line x1="40" y1="14" x2="40" y2="50"/>
+                            <line x1="48" y1="22" x2="48" y2="42"/>
+                            <line x1="56" y1="32" x2="56" y2="32"/>
+                        </svg>
+                        <span>Audio &middot; Community &middot; Education</span>
                     </div>
                 </div>
             </div>
@@ -47,28 +70,40 @@
 
         <section class="features">
             <div class="container">
-                <h2 class="reveal">What We Do</h2>
+                <div class="section-header reveal">
+                    <h2>What We Do</h2>
+                </div>
                 <div class="feature-grid">
                     <div class="feature-card reveal reveal-delay-1">
-                        <div class="img-placeholder card-img">
-                            <span class="placeholder-icon">🎙️</span>
-                            <span class="placeholder-label">Accessible media</span>
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+                                <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                            </svg>
                         </div>
                         <h3>Accessible health media</h3>
                         <p>Audio-first podcasts, narrated video, and expert-informed content on nutrition, care navigation, mental wellness, and more — built for blind and visually impaired listeners and viewers.</p>
                     </div>
                     <div class="feature-card reveal reveal-delay-2">
-                        <div class="img-placeholder card-img">
-                            <span class="placeholder-icon">👥</span>
-                            <span class="placeholder-label">Community</span>
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
                         </div>
                         <h3>Community &amp; events</h3>
                         <p>Live Q&amp;As, workshops, health fairs, and peer gatherings — in person and online — so education continues beyond the download.</p>
                     </div>
                     <div class="feature-card reveal reveal-delay-3">
-                        <div class="img-placeholder card-img">
-                            <span class="placeholder-icon">📢</span>
-                            <span class="placeholder-label">Advocacy</span>
+                        <div class="feature-card-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
                         </div>
                         <h3>Advocacy &amp; systems change</h3>
                         <p>We work with institutions and policymakers to raise accessibility standards so health information reaches everyone who needs it.</p>
@@ -76,18 +111,84 @@
                 </div>
             </div>
         </section>
+        <!-- NEWS & EVENTS
+             To add a new post, copy one <article class="news-card"> block below.
+             Change the tag class (news-tag--event / news-tag--news / news-tag--volunteer),
+             update the <time datetime="YYYY-MM-DD"> and visible date, then fill in the
+             heading, body text, and link href. -->
+        <section class="news-events">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>News &amp; Events</h2>
+                    <p>Stay up to date with our latest programs, announcements, and community gatherings.</p>
+                </div>
+                <div class="news-grid">
+
+                    <article class="news-card reveal reveal-delay-1">
+                        <div class="news-card-meta">
+                            <span class="news-tag news-tag--event">Upcoming Event</span>
+                            <time datetime="2026-06-15">June 15, 2026</time>
+                        </div>
+                        <h3>Community Health Fair</h3>
+                        <p>Join us for our first accessible community health fair — featuring live Q&amp;As with medical professionals, free resources, and peer connection in a fully accessible in-person and virtual format.</p>
+                        <a href="contact.html" class="news-link">Learn more</a>
+                    </article>
+
+                    <article class="news-card reveal reveal-delay-2">
+                        <div class="news-card-meta">
+                            <span class="news-tag news-tag--news">Announcement</span>
+                            <time datetime="2026-05-10">May 10, 2026</time>
+                        </div>
+                        <h3>Light Beyond Sight Officially Launches</h3>
+                        <p>We are proud to announce the official launch of Light Beyond Sight — a 501(c)(3) nonprofit dedicated to closing the health knowledge gap for the blind and visually impaired community.</p>
+                        <a href="mission.html" class="news-link">Read our mission</a>
+                    </article>
+
+                    <article class="news-card reveal reveal-delay-3">
+                        <div class="news-card-meta">
+                            <span class="news-tag news-tag--volunteer">Volunteer</span>
+                            <time datetime="2026-05-20">May 20, 2026</time>
+                        </div>
+                        <h3>Volunteer Applications Now Open</h3>
+                        <p>We are accepting applications for podcast production, community outreach, clinical review, and event support. Help us build something meaningful for a community that deserves better.</p>
+                        <a href="volunteer.html" class="news-link">Apply to volunteer</a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
 
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Light Beyond Sight. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="contact.html">Contact Us</a>
-                <a href="volunteer.html">Volunteer</a>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Light Beyond Sight</h2>
+                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Organization</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission &amp; Vision</a></li>
+                    <li><a href="impact.html">Our Impact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
+            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
+        </div>
     </footer>
+
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
 </body>

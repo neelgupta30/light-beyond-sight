@@ -8,6 +8,14 @@ class VisionAssistAI {
         this.highContrastMode = false;
         this.fontSizeMultiplier = 1;
         this.voiceCommands = [];
+        this.voices = [];
+
+        // Cache voices immediately and on change (Chrome fires voiceschanged async)
+        this.voices = this.speechSynthesis.getVoices();
+        this.speechSynthesis.addEventListener('voiceschanged', () => {
+            this.voices = this.speechSynthesis.getVoices();
+        });
+
         this.setupVoiceCommands();
         this.init();
     }
@@ -22,7 +30,7 @@ class VisionAssistAI {
         // Create floating button
         const button = document.createElement('button');
         button.id = 'vision-assist-btn';
-        button.innerHTML = '👁️ Vision Assist';
+        button.innerHTML = 'Vision Assist';
         button.className = 'vision-assist-button';
         button.setAttribute('aria-label', 'Toggle Vision Assist AI');
         document.body.appendChild(button);
@@ -33,7 +41,7 @@ class VisionAssistAI {
         panel.className = 'vision-assist-panel';
         panel.innerHTML = `
             <div class="vision-assist-header">
-                <h2>👁️ Vision Assist AI</h2>
+                <h2>Vision Assist</h2>
                 <button class="close-btn" aria-label="Close panel">×</button>
             </div>
             <div class="vision-assist-content">
@@ -405,10 +413,10 @@ class VisionAssistAI {
         utterance.pitch = 1;
         utterance.volume = 1;
         
-        // Try to use a more natural voice
-        const voices = this.speechSynthesis.getVoices();
-        const preferredVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Female')) ||
-                              voices.find(v => v.lang.includes('en'));
+        // Use cached voices (populated via voiceschanged event in constructor)
+        const voices = this.voices.length ? this.voices : this.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(v => v.lang.startsWith('en') && /female|samantha|karen|moira|victoria|zira/i.test(v.name)) ||
+                               voices.find(v => v.lang.startsWith('en'));
         if (preferredVoice) {
             utterance.voice = preferredVoice;
         }
