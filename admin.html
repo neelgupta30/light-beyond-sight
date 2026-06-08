@@ -45,6 +45,11 @@
                 Resources
                 <span class="admin-nav-badge" id="badgeResources">0</span>
             </button>
+            <button class="admin-nav-btn" data-section="volunteers">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Volunteers
+                <span class="admin-nav-badge" id="badgeVolunteers">0</span>
+            </button>
             <span class="admin-sidebar-label" style="margin-top:1rem;">Account</span>
             <button class="admin-nav-btn" data-section="settings">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -246,6 +251,41 @@
                 </div>
             </section>
 
+            <!-- ── VOLUNTEERS ── -->
+            <section class="admin-section" id="sectionVolunteers">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">Volunteers</h1>
+                </div>
+
+                <!-- Sub-tabs -->
+                <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;border-bottom:2px solid #e2e8f0;padding-bottom:0;">
+                    <button class="vol-tab-btn active" data-vtab="applications" style="background:none;border:none;border-bottom:2px solid #1e3c72;margin-bottom:-2px;padding:0.625rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9375rem;font-weight:600;color:#1e3c72;cursor:pointer;">Applications</button>
+                    <button class="vol-tab-btn" data-vtab="hours" style="background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;padding:0.625rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9375rem;font-weight:600;color:#94a3b8;cursor:pointer;">Hours Log</button>
+                </div>
+
+                <!-- Applications -->
+                <div id="vtabApplications">
+                    <div class="admin-section-hd" style="margin-bottom:1rem;">
+                        <span style="font-size:0.9rem;color:#64748b;font-family:'DM Sans',sans-serif;">All submitted volunteer applications</span>
+                        <button class="btn btn-outline btn-xs" id="exportAppsBtn">Export CSV</button>
+                    </div>
+                    <div class="admin-card" style="padding:0;overflow:hidden;">
+                        <div id="appsTableWrap"></div>
+                    </div>
+                </div>
+
+                <!-- Hours -->
+                <div id="vtabHours" style="display:none;">
+                    <div class="admin-section-hd" style="margin-bottom:1rem;">
+                        <span style="font-size:0.9rem;color:#64748b;font-family:'DM Sans',sans-serif;">All volunteer hours across all users</span>
+                        <button class="btn btn-outline btn-xs" id="exportHoursBtn">Export CSV</button>
+                    </div>
+                    <div class="admin-card" style="padding:0;overflow:hidden;">
+                        <div id="hoursTableWrap"></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- ── SETTINGS ── -->
             <section class="admin-section" id="sectionSettings">
                 <div class="admin-section-hd">
@@ -382,6 +422,9 @@
             document.getElementById('statPosts').textContent      = np;
             document.getElementById('statPodcasts').textContent   = ne;
             document.getElementById('statResources').textContent  = nr;
+        }
+        function bindDeleteBtns(wrap) {
+            /* placeholder — overridden below in volunteers section */
         }
 
         /* ── Dashboard ── */
@@ -720,8 +763,146 @@
             });
         }
 
+        /* ── VOLUNTEERS ── */
+        function updateBadgeVolunteers() {
+            var n = (window.LBSApplications ? window.LBSApplications.get().length : 0);
+            document.getElementById('badgeVolunteers').textContent = n;
+        }
+
+        // Sub-tab switching
+        document.querySelectorAll('.vol-tab-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.vol-tab-btn').forEach(function (b) {
+                    b.style.borderBottomColor = 'transparent';
+                    b.style.color = '#94a3b8';
+                    b.classList.remove('active');
+                });
+                btn.style.borderBottomColor = '#1e3c72';
+                btn.style.color = '#1e3c72';
+                btn.classList.add('active');
+                var tab = btn.dataset.vtab;
+                document.getElementById('vtabApplications').style.display = tab === 'applications' ? 'block' : 'none';
+                document.getElementById('vtabHours').style.display        = tab === 'hours'        ? 'block' : 'none';
+                if (tab === 'applications') renderAppsTable();
+                if (tab === 'hours')        renderAllHours();
+            });
+        });
+
+        function renderAppsTable() {
+            var apps = window.LBSApplications ? window.LBSApplications.get() : [];
+            var wrap = document.getElementById('appsTableWrap');
+            if (!apps.length) {
+                wrap.innerHTML = '<p class="admin-table-empty">No applications yet.</p>';
+                return;
+            }
+            wrap.innerHTML = '<table class="admin-table"><thead><tr>' +
+                '<th>Name</th><th>Email</th><th>Phone</th><th>Interests</th><th>Hrs/wk</th><th>Submitted</th><th></th>' +
+                '</tr></thead><tbody>' +
+                apps.map(function (a) {
+                    return '<tr>' +
+                        '<td class="td-title">' + esc((a.firstName||'') + ' ' + (a.lastName||'')) + '</td>' +
+                        '<td>' + esc(a.email) + '</td>' +
+                        '<td>' + esc(a.phone || '—') + '</td>' +
+                        '<td style="max-width:180px;white-space:normal;font-size:0.8125rem;color:#475569">' + esc(a.interests || '—') + '</td>' +
+                        '<td>' + esc(a.hoursPerWeek || '—') + '</td>' +
+                        '<td style="white-space:nowrap">' + fmtDate((a.submittedAt||'').slice(0,10)) + '</td>' +
+                        '<td class="td-actions"><button class="btn-danger" data-id="' + a.id + '" data-store="applications">Delete</button></td>' +
+                        '</tr>';
+                }).join('') + '</tbody></table>';
+            bindDeleteBtns(wrap);
+        }
+
+        function renderAllHours() {
+            var hours = window.LBSHours ? window.LBSHours.get() : [];
+            var wrap  = document.getElementById('hoursTableWrap');
+            if (!hours.length) {
+                wrap.innerHTML = '<p class="admin-table-empty">No hours logged yet.</p>';
+                return;
+            }
+            // Sort by date desc
+            hours = hours.slice().sort(function (a, b) { return (b.date||'').localeCompare(a.date||''); });
+            // Totals per user
+            var totals = {};
+            hours.forEach(function (e) {
+                totals[e.userEmail] = (totals[e.userEmail] || 0) + parseFloat(e.hours || 0);
+            });
+            wrap.innerHTML = '<table class="admin-table"><thead><tr>' +
+                '<th>Date</th><th>Volunteer</th><th>Email</th><th>Activity</th><th>Hours</th><th>Notes</th><th></th>' +
+                '</tr></thead><tbody>' +
+                hours.map(function (e) {
+                    return '<tr>' +
+                        '<td style="white-space:nowrap">' + fmtDate(e.date) + '</td>' +
+                        '<td>' + esc(e.userName || e.userEmail) + '</td>' +
+                        '<td style="font-size:0.8125rem;color:#64748b">' + esc(e.userEmail) + '</td>' +
+                        '<td class="td-title">' + esc(e.activity) + '</td>' +
+                        '<td style="font-weight:700;color:#1e3c72;white-space:nowrap">' + parseFloat(e.hours).toFixed(1) + ' hrs</td>' +
+                        '<td style="font-size:0.8125rem;color:#64748b">' + esc(e.notes || '—') + '</td>' +
+                        '<td class="td-actions"><button class="btn-danger" data-id="' + e.id + '" data-store="hours">Delete</button></td>' +
+                        '</tr>';
+                }).join('') + '</tbody></table>';
+            bindDeleteBtns(wrap);
+        }
+
+        // Extend delete handler to cover new stores
+        var _origBind = bindDeleteBtns;
+        bindDeleteBtns = function (wrap) {
+            wrap.querySelectorAll('.btn-danger[data-store]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    if (!confirm('Delete this item? This cannot be undone.')) return;
+                    var store = btn.dataset.store;
+                    if (store === 'posts')        window.LBSPosts.remove(btn.dataset.id);
+                    if (store === 'podcasts')     window.LBSPodcasts.remove(btn.dataset.id);
+                    if (store === 'resources')    window.LBSResources.remove(btn.dataset.id);
+                    if (store === 'applications') window.LBSApplications.remove(btn.dataset.id);
+                    if (store === 'hours')        window.LBSHours.remove(btn.dataset.id);
+                    if (store === 'posts')        renderPostsTable();
+                    if (store === 'podcasts')     renderPodcastsTable();
+                    if (store === 'resources')    renderResourcesTable();
+                    if (store === 'applications') { renderAppsTable(); updateBadgeVolunteers(); }
+                    if (store === 'hours')        renderAllHours();
+                    updateBadges();
+                });
+            });
+        };
+
+        // CSV export
+        function toCSV(rows) {
+            if (!rows.length) return '';
+            var headers = Object.keys(rows[0]);
+            var lines = [headers.join(',')].concat(rows.map(function (r) {
+                return headers.map(function (h) {
+                    return '"' + String(r[h] || '').replace(/"/g, '""') + '"';
+                }).join(',');
+            }));
+            return lines.join('\n');
+        }
+
+        function downloadCSV(csv, name) {
+            var a = document.createElement('a');
+            a.href     = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+            a.download = name;
+            a.click();
+        }
+
+        var exportAppsBtn   = document.getElementById('exportAppsBtn');
+        var exportHoursBtn  = document.getElementById('exportHoursBtn');
+        if (exportAppsBtn)  exportAppsBtn.addEventListener('click',  function () { downloadCSV(toCSV(window.LBSApplications.get()), 'lbs-applications.csv'); });
+        if (exportHoursBtn) exportHoursBtn.addEventListener('click', function () { downloadCSV(toCSV(window.LBSHours.get()),         'lbs-volunteer-hours.csv'); });
+
+        // Wire Volunteers into gotoSection
+        var _origGoto = gotoSection;
+        gotoSection = function (name) {
+            _origGoto(name);
+            if (name === 'volunteers') {
+                renderAppsTable();
+                updateBadgeVolunteers();
+            }
+        };
+        window.gotoSection = gotoSection;
+
         /* ── Init ── */
         updateBadges();
+        updateBadgeVolunteers();
         refreshDashboard();
 
     })();

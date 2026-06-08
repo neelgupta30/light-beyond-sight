@@ -212,6 +212,27 @@
     };
 
     // ============================================================
+    // Volunteer Hours
+    // ============================================================
+    window.LBSHours = {
+        get:         function () { try { return JSON.parse(localStorage.getItem('lbs_hours')) || []; } catch (e) { return []; } },
+        save:        function (l) { localStorage.setItem('lbs_hours', JSON.stringify(l)); },
+        add:         function (e) { var l = this.get(); e.id = Date.now().toString(); l.unshift(e); this.save(l); return e; },
+        remove:      function (id) { this.save(this.get().filter(function (e) { return e.id !== id; })); },
+        forUser:     function (email) { return this.get().filter(function (e) { return e.userEmail === email; }); }
+    };
+
+    // ============================================================
+    // Volunteer Applications
+    // ============================================================
+    window.LBSApplications = {
+        get:    function () { try { return JSON.parse(localStorage.getItem('lbs_applications')) || []; } catch (e) { return []; } },
+        save:   function (l) { localStorage.setItem('lbs_applications', JSON.stringify(l)); },
+        add:    function (a) { var l = this.get(); a.id = Date.now().toString(); l.unshift(a); this.save(l); return a; },
+        remove: function (id) { this.save(this.get().filter(function (a) { return a.id !== id; })); }
+    };
+
+    // ============================================================
     // Posts (News & Events)
     // ============================================================
     window.LBSPosts = {
@@ -263,6 +284,16 @@
                 loginLink.href        = 'admin.html';
             } else {
                 loginLink.textContent = 'Account';
+                // Inject "My Hours" link for non-admin logged-in users
+                var hoursLi = document.createElement('li');
+                var hoursA  = document.createElement('a');
+                hoursA.href        = 'hours.html';
+                hoursA.textContent = 'My Hours';
+                if (window.location.pathname.endsWith('hours.html')) {
+                    hoursA.classList.add('active');
+                }
+                hoursLi.appendChild(hoursA);
+                loginLink.closest('li').insertAdjacentElement('beforebegin', hoursLi);
             }
         }
     }

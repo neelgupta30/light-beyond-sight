@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Application — Light Beyond Sight</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .apply-section { padding: 80px 24px; background: #f8fafc; min-height: 60vh; }
+
+        .apply-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 720px;
+            margin: 0 auto;
+            box-shadow: 0 4px 24px rgba(15,39,68,0.06);
+        }
+
+        .apply-card-header {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .apply-card-header h2 {
+            font-size: 1.625rem;
+            color: #0f2744;
+            margin-bottom: 0.5rem;
+        }
+
+        .apply-card-header p {
+            color: #475569;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .apply-section-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #1e3c72;
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .apply-section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .apply-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.625rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9375rem;
+            color: #1e293b;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1e3c72;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9375rem;
+            color: #1e293b;
+            cursor: pointer;
+        }
+
+        .radio-item input[type="radio"] {
+            accent-color: #1e3c72;
+            cursor: pointer;
+        }
+
+        .apply-success {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .apply-success-icon {
+            margin-bottom: 1rem;
+        }
+
+        .apply-success h3 {
+            font-size: 1.5rem;
+            color: #0f2744;
+            margin-bottom: 0.75rem;
+            font-family: 'Fraunces', serif;
+        }
+
+        .apply-success p {
+            color: #475569;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            max-width: 440px;
+            margin: 0 auto 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .apply-form-row { grid-template-columns: 1fr; }
+            .checkbox-grid  { grid-template-columns: 1fr; }
+            .apply-card     { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-nav">Skip to main content</a>
+
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-banner-inner">
+            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
+            <a href="contact.html" class="donation-banner-link">Donate</a>
+            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo"><a href="index.html"><div class="nav-logo-circle"><img src="logo.png" alt="" class="nav-logo-img" width="52" height="52"></div><span class="nav-logo-text">Light Beyond Sight</span></a></div>
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission</a></li>
+                    <li><a href="impact.html">Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="volunteer.html" class="active">Volunteer</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="nav-login">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="reveal">Volunteer Application</h1>
+                <p class="subtitle reveal reveal-delay-1">Join our community of changemakers — tell us about yourself</p>
+            </div>
+        </section>
+
+        <section class="apply-section">
+            <div class="apply-card">
+
+                <div class="apply-card-header">
+                    <h2>Apply to Volunteer</h2>
+                    <p>We review every application personally. Once submitted, our team will reach out within 3–5 business days to discuss how your skills and schedule fit our current needs.</p>
+                </div>
+
+                <!-- Success state -->
+                <div class="apply-success" id="applySuccess">
+                    <div class="apply-success-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3>Application submitted!</h3>
+                    <p>Thank you for applying to volunteer with Light Beyond Sight. We'll be in touch at your email address within 3–5 business days.</p>
+                    <a href="volunteer.html" class="btn btn-dark">Back to Volunteer Page</a>
+                </div>
+
+                <form id="applyForm" novalidate>
+
+                    <div class="apply-section-label">Personal information</div>
+
+                    <div class="apply-form-row">
+                        <div class="form-group">
+                            <label for="appFirst">First name *</label>
+                            <input type="text" id="appFirst" name="first_name" required autocomplete="given-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="appLast">Last name *</label>
+                            <input type="text" id="appLast" name="last_name" required autocomplete="family-name">
+                        </div>
+                    </div>
+
+                    <div class="apply-form-row">
+                        <div class="form-group">
+                            <label for="appEmail">Email address *</label>
+                            <input type="email" id="appEmail" name="email" required autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="appPhone">Phone number</label>
+                            <input type="tel" id="appPhone" name="phone" autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <div class="apply-form-row">
+                        <div class="form-group">
+                            <label for="appCity">City</label>
+                            <input type="text" id="appCity" name="city" placeholder="e.g. Atlanta, GA">
+                        </div>
+                        <div class="form-group">
+                            <label for="appHowHeard">How did you hear about us?</label>
+                            <select id="appHowHeard" name="how_heard">
+                                <option value="">Select…</option>
+                                <option value="Social media">Social media</option>
+                                <option value="Friend or family">Friend or family</option>
+                                <option value="Search engine">Search engine</option>
+                                <option value="Community event">Community event</option>
+                                <option value="News or article">News or article</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="apply-section-label">Availability</div>
+
+                    <div class="apply-form-row">
+                        <div class="form-group">
+                            <label for="appHoursWeek">Hours available per week *</label>
+                            <select id="appHoursWeek" name="hours_per_week" required>
+                                <option value="">Select…</option>
+                                <option value="1–2 hours">1–2 hours</option>
+                                <option value="3–5 hours">3–5 hours</option>
+                                <option value="6–10 hours">6–10 hours</option>
+                                <option value="10+ hours">10+ hours</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Format *</label>
+                            <div class="radio-group" style="margin-top:0.5rem;">
+                                <label class="radio-item"><input type="radio" name="format" value="In-person" required> In-person</label>
+                                <label class="radio-item"><input type="radio" name="format" value="Virtual"> Virtual</label>
+                                <label class="radio-item"><input type="radio" name="format" value="Either"> Either</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Days available</label>
+                        <div class="checkbox-grid" style="margin-top:0.5rem;">
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Monday"> Monday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Tuesday"> Tuesday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Wednesday"> Wednesday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Thursday"> Thursday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Friday"> Friday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Saturday"> Saturday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Sunday"> Sunday</label>
+                            <label class="checkbox-item"><input type="checkbox" name="days" value="Flexible"> Flexible</label>
+                        </div>
+                    </div>
+
+                    <div class="apply-section-label">Areas of interest</div>
+
+                    <div class="form-group">
+                        <label>Which areas interest you most? <span style="font-weight:400;color:#94a3b8;">(select all that apply)</span></label>
+                        <div class="checkbox-grid" style="margin-top:0.5rem;">
+                            <label class="checkbox-item"><input type="checkbox" name="interests" value="Events & Live Programming"> Events &amp; Live Programming</label>
+                            <label class="checkbox-item"><input type="checkbox" name="interests" value="Community Outreach"> Community Outreach</label>
+                            <label class="checkbox-item"><input type="checkbox" name="interests" value="Administrative Support"> Administrative Support</label>
+                            <label class="checkbox-item"><input type="checkbox" name="interests" value="Fundraising & Partnerships"> Fundraising &amp; Partnerships</label>
+                        </div>
+                    </div>
+
+                    <div class="apply-section-label">Background</div>
+
+                    <div class="form-group">
+                        <label for="appConnection">Do you have a personal connection to the blind or visually impaired community?</label>
+                        <select id="appConnection" name="community_connection">
+                            <option value="">Select…</option>
+                            <option value="Yes — I am blind or visually impaired">Yes — I am blind or visually impaired</option>
+                            <option value="Yes — family member or close friend">Yes — family member or close friend</option>
+                            <option value="Yes — professional experience">Yes — professional experience (healthcare, education, etc.)</option>
+                            <option value="No direct connection">No direct connection</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appExperience">Relevant experience or skills <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                        <textarea id="appExperience" name="experience" rows="3" placeholder="Tell us about any relevant work, volunteer, or personal experience…"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appMotivation">Why do you want to volunteer with Light Beyond Sight? *</label>
+                        <textarea id="appMotivation" name="motivation" rows="4" placeholder="We'd love to hear what draws you to this work and what you hope to contribute…" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="appQuestions">Any questions or additional information? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                        <textarea id="appQuestions" name="questions" rows="2" placeholder="Anything you'd like us to know…"></textarea>
+                    </div>
+
+                    <div class="auth-msg" id="applyMsg"></div>
+
+                    <button type="submit" class="btn btn-dark" id="applySubmitBtn" style="margin-top:0.5rem;">Submit Application</button>
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Light Beyond Sight</h2>
+                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Organization</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission &amp; Vision</a></li>
+                    <li><a href="impact.html">Our Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="apply.html">Apply Now</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
+            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="vision-assist.js"></script>
+    <script src="donate.js"></script>
+    <script>
+    (function () {
+        var form      = document.getElementById('applyForm');
+        var submitBtn = document.getElementById('applySubmitBtn');
+        var msgEl     = document.getElementById('applyMsg');
+        var success   = document.getElementById('applySuccess');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var first      = document.getElementById('appFirst').value.trim();
+            var last       = document.getElementById('appLast').value.trim();
+            var email      = document.getElementById('appEmail').value.trim();
+            var hoursWeek  = document.getElementById('appHoursWeek').value;
+            var motivation = document.getElementById('appMotivation').value.trim();
+            var format     = form.querySelector('input[name="format"]:checked');
+
+            if (!first || !last || !email || !hoursWeek || !motivation || !format) {
+                msgEl.textContent  = 'Please fill in all required fields.';
+                msgEl.className    = 'auth-msg error';
+                msgEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                msgEl.textContent = 'Please enter a valid email address.';
+                msgEl.className   = 'auth-msg error';
+                return;
+            }
+
+            // Collect checkboxes
+            var days = Array.from(form.querySelectorAll('input[name="days"]:checked')).map(function (c) { return c.value; });
+            var interests = Array.from(form.querySelectorAll('input[name="interests"]:checked')).map(function (c) { return c.value; });
+
+            var app = {
+                firstName:   first,
+                lastName:    last,
+                email:       email,
+                phone:       document.getElementById('appPhone').value.trim(),
+                city:        document.getElementById('appCity').value.trim(),
+                howHeard:    document.getElementById('appHowHeard').value,
+                hoursPerWeek: hoursWeek,
+                format:      format.value,
+                days:        days.join(', '),
+                interests:   interests.join(', '),
+                connection:  document.getElementById('appConnection').value,
+                experience:  document.getElementById('appExperience').value.trim(),
+                motivation:  motivation,
+                questions:   document.getElementById('appQuestions').value.trim(),
+                submittedAt: new Date().toISOString()
+            };
+
+            // Save locally for admin
+            window.LBSApplications.add(app);
+
+            // Send email via FormSubmit
+            submitBtn.disabled    = true;
+            submitBtn.textContent = 'Submitting…';
+
+            var fd = new FormData();
+            fd.append('_subject',  'New volunteer application — ' + first + ' ' + last);
+            fd.append('_captcha',  'false');
+            fd.append('_template', 'table');
+            Object.keys(app).forEach(function (k) { fd.append(k, app[k]); });
+
+            fetch('https://formsubmit.co/ajax/info@lightbeyondsight.org', {
+                method:  'POST',
+                headers: { 'Accept': 'application/json' },
+                body:    fd
+            })
+            .then(function (r) { return r.json(); })
+            .then(function () {
+                form.style.display    = 'none';
+                success.style.display = 'block';
+            })
+            .catch(function () {
+                // Still show success if saved locally
+                form.style.display    = 'none';
+                success.style.display = 'block';
+            });
+        });
+    })();
+    </script>
+</body>
+</html>
