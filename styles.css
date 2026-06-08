@@ -1977,6 +1977,33 @@ footer {
     font-family: 'DM Sans', sans-serif;
 }
 
+/* ---- Site logo ---- */
+.nav-logo-img {
+    height: 42px;
+    width: auto;
+    display: block;
+    mix-blend-mode: multiply;  /* makes white bg vanish on dark navbar */
+    border-radius: 4px;
+}
+
+.footer-logo-img {
+    height: 56px;
+    width: auto;
+    display: block;
+    margin-bottom: 1rem;
+    mix-blend-mode: multiply;
+    border-radius: 4px;
+}
+
+.login-brand-logo-img {
+    height: 60px;
+    width: auto;
+    display: block;
+    margin-bottom: 2rem;
+    mix-blend-mode: multiply;
+    border-radius: 6px;
+}
+
 .news-tag--video    { background: #7c3aed; color: #fff; }
 .news-tag--photo    { background: #0891b2; color: #fff; }
 .news-tag--document { background: #059669; color: #fff; }

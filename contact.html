@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us — Light Beyond Sight</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,9 +21,7 @@
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="logo">
-                    <h1>Light Beyond Sight</h1>
-                </div>
+                <div class="logo"><a href="index.html"><img src="logo.png" alt="Light Beyond Sight" class="nav-logo-img"></a></div>
                 <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -96,7 +95,20 @@
 
                     <div class="contact-form-container reveal reveal-delay-1">
                         <h2>Send Us a Message</h2>
-                        <form class="contact-form" action="#" method="POST">
+
+                        <!-- Success state -->
+                        <div id="contactSuccess" style="display:none; padding:2rem; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; text-align:center;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:0.75rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <h3 style="color:#15803d; margin-bottom:0.5rem;">Message sent!</h3>
+                            <p style="color:#166534; font-size:0.9375rem;">Thank you for reaching out. We'll get back to you at your email address within 1–2 business days.</p>
+                        </div>
+
+                        <form class="contact-form" id="contactForm" novalidate>
+                            <!-- FormSubmit.co hidden config -->
+                            <input type="hidden" name="_subject" value="New message from Light Beyond Sight website">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" required>
@@ -116,12 +128,12 @@
                                 <label for="subject">Subject *</label>
                                 <select id="subject" name="subject" required>
                                     <option value="">Select a subject...</option>
-                                    <option value="volunteer">Volunteer Opportunities</option>
-                                    <option value="donation">Donations &amp; Support</option>
-                                    <option value="partnership">Partnership Inquiries</option>
-                                    <option value="program">Program Information</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="other">Other</option>
+                                    <option value="Volunteer Opportunities">Volunteer Opportunities</option>
+                                    <option value="Donations & Support">Donations &amp; Support</option>
+                                    <option value="Partnership Inquiries">Partnership Inquiries</option>
+                                    <option value="Program Information">Program Information</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
 
@@ -130,7 +142,9 @@
                                 <textarea id="message" name="message" rows="6" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-dark btn-full">Send Message</button>
+                            <div id="contactFormMsg" style="display:none; padding:0.75rem 1rem; border-radius:8px; font-size:0.875rem; font-weight:500; margin-bottom:1rem;"></div>
+
+                            <button type="submit" class="btn btn-dark btn-full" id="contactSubmitBtn">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -141,7 +155,7 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-brand">
-                <h2>Light Beyond Sight</h2>
+                <img src="logo.png" alt="Light Beyond Sight" class="footer-logo-img">
                 <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
             </div>
             <div class="footer-col">
@@ -171,5 +185,73 @@
 
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
+    <script>
+    (function () {
+        var form    = document.getElementById('contactForm');
+        var btn     = document.getElementById('contactSubmitBtn');
+        var msgBox  = document.getElementById('contactFormMsg');
+        var success = document.getElementById('contactSuccess');
+
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Basic validation
+            var name    = document.getElementById('name').value.trim();
+            var email   = document.getElementById('email').value.trim();
+            var subject = document.getElementById('subject').value;
+            var message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                showMsg('Please fill in all required fields.', 'error');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showMsg('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            btn.disabled    = true;
+            btn.textContent = 'Sending…';
+            clearMsg();
+
+            var data = new FormData(form);
+
+            fetch('https://formsubmit.co/ajax/info@lightbeyondsight.org', {
+                method:  'POST',
+                headers: { 'Accept': 'application/json' },
+                body:    data
+            })
+            .then(function (res) { return res.json(); })
+            .then(function (json) {
+                if (json.success === 'true' || json.success === true) {
+                    form.style.display    = 'none';
+                    success.style.display = 'block';
+                } else {
+                    throw new Error('Submission failed');
+                }
+            })
+            .catch(function () {
+                showMsg('Something went wrong — please email us directly at info@lightbeyondsight.org', 'error');
+                btn.disabled    = false;
+                btn.textContent = 'Send Message';
+            });
+        });
+
+        function showMsg(text, type) {
+            msgBox.textContent     = text;
+            msgBox.style.display   = 'block';
+            msgBox.style.background = type === 'error' ? '#fef2f2' : '#f0fdf4';
+            msgBox.style.color      = type === 'error' ? '#b91c1c' : '#15803d';
+            msgBox.style.border     = '1px solid ' + (type === 'error' ? '#fecaca' : '#bbf7d0');
+        }
+
+        function clearMsg() {
+            msgBox.style.display = 'none';
+            msgBox.textContent   = '';
+        }
+    })();
+    </script>
 </body>
 </html>
