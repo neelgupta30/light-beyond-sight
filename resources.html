@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources — Light Beyond Sight</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main" class="skip-nav">Skip to main content</a>
+
+    <div class="donation-banner" id="donationBanner">
+        <div class="donation-banner-inner">
+            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
+            <a href="contact.html" class="donation-banner-link">Donate</a>
+            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Light Beyond Sight</h1>
+                </div>
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission</a></li>
+                    <li><a href="impact.html">Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
+                    <li><a href="resources.html" class="active">Resources</a></li>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="nav-login">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="reveal">Resources</h1>
+                <p class="subtitle reveal reveal-delay-1">Videos, photos, and educational materials from Light Beyond Sight</p>
+            </div>
+        </section>
+
+        <section class="resources-section">
+            <div class="container">
+
+                <!-- Admin bar (shown only when logged in as admin) -->
+                <div class="admin-bar" id="resAdminBar" style="display:none;">
+                    <a href="admin.html#resources" class="btn btn-dark">Manage in Dashboard</a>
+                </div>
+
+                <!-- Type filters -->
+                <div class="resources-filters" id="resFilters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="video">Videos</button>
+                    <button class="filter-btn" data-filter="photo">Photos</button>
+                    <button class="filter-btn" data-filter="document">Documents</button>
+                </div>
+
+                <!-- Grid populated by JS -->
+                <div class="resources-grid" id="resourcesGrid"></div>
+                <div class="resources-empty" id="resourcesEmpty" style="display:none;">
+                    <p>No resources yet. Check back soon.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h2>Light Beyond Sight</h2>
+                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Organization</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mission.html">Mission &amp; Vision</a></li>
+                    <li><a href="impact.html">Our Impact</a></li>
+                    <li><a href="podcasts.html">Podcasts</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
+            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="vision-assist.js"></script>
+    <script>
+    (function () {
+        if (window.LBSAuth && window.LBSAuth.isAdmin()) {
+            document.getElementById('resAdminBar').style.display = 'flex';
+        }
+
+        function esc(str) {
+            var d = document.createElement('div');
+            d.textContent = String(str || '');
+            return d.innerHTML;
+        }
+
+        function fmtDate(str) {
+            try { return new Date(str + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }); }
+            catch (e) { return str || ''; }
+        }
+
+        function tagLabel(type) {
+            return type === 'video'    ? 'Video'    :
+                   type === 'photo'    ? 'Photo'    :
+                   type === 'document' ? 'Document' : type;
+        }
+
+        function renderCard(r) {
+            var mediaHtml = '';
+            if (r.type === 'video') {
+                var embed = window.LBSResources.embedUrl(r.url);
+                if (embed) {
+                    mediaHtml = '<div class="resource-video-wrap">' +
+                        '<iframe src="' + esc(embed) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="' + esc(r.title) + '"></iframe>' +
+                        '</div>';
+                }
+            } else if (r.type === 'photo') {
+                mediaHtml = '<div class="resource-photo-wrap">' +
+                    '<img src="' + esc(r.url) + '" alt="' + esc(r.title) + '" loading="lazy">' +
+                    '</div>';
+            } else if (r.type === 'document') {
+                mediaHtml = '<div class="resource-doc-icon">' +
+                    '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>' +
+                    '</div>';
+            }
+
+            var linkHtml = r.url && (r.type === 'document' || (r.type === 'photo' && r.url))
+                ? '<a href="' + esc(r.url) + '" class="news-link" target="_blank" rel="noopener">' +
+                  (r.type === 'document' ? 'View document' : 'View full image') + '</a>'
+                : '';
+
+            return '<article class="resource-card" data-type="' + esc(r.type) + '">' +
+                mediaHtml +
+                '<div class="resource-body">' +
+                    '<div class="news-card-meta">' +
+                        '<span class="news-tag news-tag--' + esc(r.type) + '">' + esc(tagLabel(r.type)) + '</span>' +
+                        '<time datetime="' + esc(r.date) + '">' + fmtDate(r.date) + '</time>' +
+                    '</div>' +
+                    '<h3>' + esc(r.title) + '</h3>' +
+                    (r.description ? '<p>' + esc(r.description) + '</p>' : '') +
+                    linkHtml +
+                '</div>' +
+            '</article>';
+        }
+
+        var currentFilter = 'all';
+
+        function renderResources(filter) {
+            currentFilter = filter || 'all';
+            var all   = window.LBSResources ? window.LBSResources.get() : [];
+            var items = currentFilter === 'all'
+                ? all
+                : all.filter(function (r) { return r.type === currentFilter; });
+
+            var grid  = document.getElementById('resourcesGrid');
+            var empty = document.getElementById('resourcesEmpty');
+
+            if (!items.length) {
+                grid.innerHTML     = '';
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.style.display  = 'grid';
+            grid.innerHTML      = items.map(renderCard).join('');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                renderResources(btn.dataset.filter);
+            });
+        });
+
+        renderResources('all');
+    })();
+    </script>
+</body>
+</html>

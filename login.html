@@ -3,181 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Light Beyond Sight</title>
+    <title>Sign In — Light Beyond Sight</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="login-page-body">
     <a href="#main" class="skip-nav">Skip to main content</a>
 
-    <div class="donation-banner" id="donationBanner">
-        <div class="donation-banner-inner">
-            <p>Support accessible health education for the blind and visually impaired community. <strong>Donations are tax-deductible</strong> and directly fund our programs.</p>
-            <a href="contact.html" class="donation-banner-link">Donate</a>
-            <button class="donation-banner-close" id="donationBannerClose" aria-label="Dismiss donation banner">&times;</button>
-        </div>
-    </div>
-
-    <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo">
-                    <h1>Light Beyond Sight</h1>
-                </div>
-                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="mission.html">Mission</a></li>
-                    <li><a href="impact.html">Impact</a></li>
-                    <li><a href="podcasts.html">Podcasts</a></li>
-                    <li><a href="volunteer.html">Volunteer</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.html" class="nav-login active">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
     <main id="main">
-        <section class="page-header">
-            <div class="container">
-                <h1 class="reveal">Login &amp; Sign Up</h1>
-                <p class="subtitle reveal reveal-delay-1">Create an account or sign in to get involved</p>
-            </div>
-        </section>
+        <div class="login-split">
 
-        <section class="content-section">
-            <div class="container">
-                <div class="login-wrapper">
-                    <div class="login-card reveal">
-                        <h2>Sign Up</h2>
-                        <p class="login-description">Create an account to volunteer, stay updated, and connect with our community.</p>
-                        <form class="contact-form login-form" action="#" method="POST">
-                            <div class="form-group">
-                                <label for="signup-name">Full Name *</label>
-                                <input type="text" id="signup-name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signup-email">Email Address *</label>
-                                <input type="email" id="signup-email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signup-password">Password *</label>
-                                <input type="password" id="signup-password" name="password" required minlength="8">
-                            </div>
-                            <button type="submit" class="btn btn-dark btn-full">Create Account</button>
-                        </form>
+            <!-- Left: branded panel -->
+            <div class="login-brand-panel" aria-hidden="true">
+                <div class="login-brand-logo">Light Beyond Sight</div>
+                <h2>Health knowledge without barriers</h2>
+                <p>Sign in to access volunteer resources, manage your account, and stay connected with our community.</p>
+                <div class="login-brand-features">
+                    <div class="login-brand-feature">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                        Audio-first health education
                     </div>
-                    <div class="login-card reveal reveal-delay-1">
-                        <h2>Log In</h2>
-                        <p class="login-description">Already have an account? Sign in below.</p>
-                        <form class="contact-form login-form" action="#" method="POST">
-                            <div class="form-group">
-                                <label for="login-email">Email Address *</label>
-                                <input type="email" id="login-email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="login-password">Password *</label>
-                                <input type="password" id="login-password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-dark btn-full">Sign In</button>
-                        </form>
+                    <div class="login-brand-feature">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Community &amp; live events
+                    </div>
+                    <div class="login-brand-feature">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Free for the community, always
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <h2>Light Beyond Sight</h2>
-                <p>Accessible health and lifestyle education for the blind and visually impaired community — through audio, community, and advocacy.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Organization</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="mission.html">Mission &amp; Vision</a></li>
-                    <li><a href="impact.html">Our Impact</a></li>
-                    <li><a href="podcasts.html">Podcasts</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Get Involved</h3>
-                <ul>
-                    <li><a href="volunteer.html">Volunteer</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="login.html">Sign In</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Light Beyond Sight &mdash; A 501(c)(3) nonprofit organization. All rights reserved.</p>
-            <a href="mailto:info@lightbeyondsight.org">info@lightbeyondsight.org</a>
-        </div>
-    </footer>
+            <!-- Right: form panel -->
+            <div class="login-form-panel">
+                <div class="login-form-inner">
+
+                    <div class="login-form-header">
+                        <h2>Welcome back</h2>
+                        <p>Sign in to your account or create a new one.</p>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab-btn active" id="tabSignIn">Sign In</button>
+                        <button class="auth-tab-btn" id="tabSignUp">Create Account</button>
+                    </div>
+
+                    <!-- ── SIGN-IN FLOW ── -->
+                    <div id="signinFlow">
+
+                        <!-- Step 1: Email -->
+                        <div class="login-step active" id="stepEmail">
+                            <div class="form-group">
+                                <label for="siEmail">Email address</label>
+                                <input type="email" id="siEmail" autocomplete="email" placeholder="you@example.com">
+                            </div>
+                            <div class="auth-msg" id="emailMsg"></div>
+                            <button class="btn btn-dark btn-full" id="emailNextBtn">Continue</button>
+                        </div>
+
+                        <!-- Step 2: Password -->
+                        <div class="login-step" id="stepPassword">
+                            <button class="step-back-btn" id="passBackBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                                Back
+                            </button>
+                            <div class="login-email-display">
+                                <span id="emailDisplay"></span>
+                                <button class="login-email-change" id="changeEmailBtn">Change</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="siPassword">Password</label>
+                                <div class="password-field-wrap">
+                                    <input type="password" id="siPassword" autocomplete="current-password">
+                                    <button type="button" class="password-toggle" id="siPassToggle" aria-label="Show/hide password">
+                                        <svg id="eyeIconSI" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="remember-row">
+                                <label class="remember-check">
+                                    <input type="checkbox" id="rememberMe"> Remember me
+                                </label>
+                                <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+                            </div>
+                            <div class="auth-msg" id="passMsg"></div>
+                            <button class="btn btn-dark btn-full" id="signInBtn">Sign in</button>
+                        </div>
+
+                        <!-- Step 3: 2FA code -->
+                        <div class="login-step" id="step2FA">
+                            <button class="step-back-btn" id="twoFABackBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                                Back
+                            </button>
+                            <p class="login-step-title">Two-step verification</p>
+                            <p class="login-step-subtitle">Open your authenticator app and enter the 6-digit code for Light Beyond Sight.</p>
+                            <div class="otp-wrap" id="otpWrap">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 1">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 2">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 3">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 4">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 5">
+                                <input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit 6">
+                            </div>
+                            <p class="totp-timer">Code refreshes in <span id="totpCountdown">30</span>s</p>
+                            <div class="auth-msg" id="twoFAMsg"></div>
+                            <button class="btn btn-dark btn-full" id="verifyTOTPBtn">Verify &amp; Sign in</button>
+                        </div>
+
+                        <!-- Step 4: Force password change -->
+                        <div class="login-step" id="stepChangePass">
+                            <p class="login-step-title">Set a new password</p>
+                            <p class="login-step-subtitle">For security, please choose a new admin password before continuing.</p>
+                            <div class="form-group">
+                                <label for="newPass">New password</label>
+                                <div class="password-field-wrap">
+                                    <input type="password" id="newPass" minlength="8" autocomplete="new-password">
+                                    <button type="button" class="password-toggle" id="newPassToggle" aria-label="Show/hide password">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                </div>
+                                <div class="strength-bar"><div class="strength-bar-fill" id="strengthFill"></div></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPass">Confirm new password</label>
+                                <input type="password" id="confirmPass" autocomplete="new-password">
+                            </div>
+                            <div class="auth-msg" id="changePassMsg"></div>
+                            <button class="btn btn-dark btn-full" id="saveNewPassBtn">Set password &amp; continue</button>
+                        </div>
+
+                    </div><!-- /signinFlow -->
+
+                    <!-- ── SIGN-UP FLOW ── -->
+                    <div id="signupFlow" style="display:none;">
+                        <div class="form-group">
+                            <label for="suName">Full name</label>
+                            <input type="text" id="suName" autocomplete="name" placeholder="Jane Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="suEmail">Email address</label>
+                            <input type="email" id="suEmail" autocomplete="email" placeholder="you@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="suPass">Password</label>
+                            <div class="password-field-wrap">
+                                <input type="password" id="suPass" minlength="8" autocomplete="new-password">
+                                <button type="button" class="password-toggle" id="suPassToggle" aria-label="Show/hide password">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="suConfirm">Confirm password</label>
+                            <input type="password" id="suConfirm" autocomplete="new-password">
+                        </div>
+                        <div class="auth-msg" id="signupMsg"></div>
+                        <button class="btn btn-dark btn-full" id="signUpBtn">Create account</button>
+                    </div><!-- /signupFlow -->
+
+                </div><!-- /login-form-inner -->
+            </div><!-- /login-form-panel -->
+
+        </div><!-- /login-split -->
+    </main>
 
     <script src="main.js"></script>
     <script src="vision-assist.js"></script>
     <script>
     (function () {
-        // If already logged in, redirect to home
+        // Already logged in? Redirect.
         if (window.LBSAuth && window.LBSAuth.getUser()) {
-            window.location.href = 'index.html';
+            window.location.href = window.LBSAuth.isAdmin() ? 'admin.html' : 'index.html';
             return;
         }
 
-        function showMsg(form, text, isError) {
-            var existing = form.querySelector('.auth-message');
-            if (existing) existing.remove();
-            var msg = document.createElement('p');
-            msg.className = 'auth-message';
-            msg.style.cssText = 'margin-top:0.75rem;font-size:0.9rem;color:' + (isError ? '#c0392b' : '#1a7a4a') + ';font-weight:500;';
-            msg.textContent = text;
-            form.appendChild(msg);
+        /* ── helpers ── */
+        function showMsg(id, text, type) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = text;
+            el.className   = 'auth-msg ' + (type || 'error');
         }
 
-        var signupForm = document.querySelector('form.login-form:first-of-type');
-        var loginForm  = document.querySelectorAll('form.login-form')[1];
+        function clearMsg(id) {
+            var el = document.getElementById(id);
+            if (el) { el.textContent = ''; el.className = 'auth-msg'; }
+        }
 
-        if (signupForm) {
-            signupForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                var name     = document.getElementById('signup-name').value.trim();
-                var email    = document.getElementById('signup-email').value.trim();
-                var password = document.getElementById('signup-password').value;
-                if (!name || !email || !password) {
-                    showMsg(signupForm, 'Please fill in all required fields.', true);
-                    return;
-                }
-                if (password.length < 8) {
-                    showMsg(signupForm, 'Password must be at least 8 characters.', true);
-                    return;
-                }
-                window.LBSAuth.signup(name, email);
-                showMsg(signupForm, 'Account created. Redirecting...', false);
-                setTimeout(function () { window.location.href = 'index.html'; }, 800);
+        function showStep(id) {
+            document.querySelectorAll('.login-step').forEach(function (s) {
+                s.classList.remove('active');
             });
+            var el = document.getElementById(id);
+            if (el) { el.classList.add('active'); el.querySelector('input') && el.querySelector('input').focus(); }
         }
 
-        if (loginForm) {
-            loginForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                var email    = document.getElementById('login-email').value.trim();
-                var password = document.getElementById('login-password').value;
-                if (!email || !password) {
-                    showMsg(loginForm, 'Please enter your email and password.', true);
-                    return;
-                }
-                var role = window.LBSAuth.login(email, password);
-                showMsg(loginForm, 'Signed in. Redirecting...', false);
-                setTimeout(function () { window.location.href = 'index.html'; }, 800);
-            });
+        function togglePass(inputId, btn) {
+            var inp = document.getElementById(inputId);
+            if (!inp) return;
+            var showing = inp.type === 'text';
+            inp.type = showing ? 'password' : 'text';
+            btn.querySelector('svg').style.opacity = showing ? '1' : '0.5';
         }
+
+        /* ── tab switching ── */
+        var tabSI = document.getElementById('tabSignIn');
+        var tabSU = document.getElementById('tabSignUp');
+        var siFlow = document.getElementById('signinFlow');
+        var suFlow = document.getElementById('signupFlow');
+
+        function activateTab(which) {
+            tabSI.classList.toggle('active', which === 'in');
+            tabSU.classList.toggle('active', which === 'up');
+            siFlow.style.display = which === 'in' ? 'block' : 'none';
+            suFlow.style.display = which === 'up' ? 'block' : 'none';
+        }
+
+        tabSI.addEventListener('click', function () { activateTab('in'); });
+        tabSU.addEventListener('click', function () { activateTab('up'); });
+
+        /* ── step tracking ── */
+        var pendingEmail    = '';
+        var pendingRemember = false;
+        var pendingTOTPSecret = null;
+
+        /* ── Step 1: Email ── */
+        document.getElementById('emailNextBtn').addEventListener('click', function () {
+            clearMsg('emailMsg');
+            var email = document.getElementById('siEmail').value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showMsg('emailMsg', 'Please enter a valid email address.', 'error');
+                return;
+            }
+            pendingEmail = email;
+            document.getElementById('emailDisplay').textContent = email;
+            showStep('stepPassword');
+        });
+
+        document.getElementById('siEmail').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') document.getElementById('emailNextBtn').click();
+        });
+
+        /* ── Back / change email ── */
+        document.getElementById('passBackBtn').addEventListener('click', function () { showStep('stepEmail'); });
+        document.getElementById('changeEmailBtn').addEventListener('click', function () { showStep('stepEmail'); });
+        document.getElementById('twoFABackBtn').addEventListener('click', function () { showStep('stepPassword'); });
+
+        /* ── Password show/hide ── */
+        document.getElementById('siPassToggle').addEventListener('click', function () {
+            togglePass('siPassword', this);
+        });
+        document.getElementById('newPassToggle').addEventListener('click', function () {
+            togglePass('newPass', this);
+        });
+        document.getElementById('suPassToggle').addEventListener('click', function () {
+            togglePass('suPass', this);
+        });
+
+        /* ── Forgot password ── */
+        document.getElementById('forgotLink').addEventListener('click', function (e) {
+            e.preventDefault();
+            showMsg('passMsg', 'Please contact info@lightbeyondsight.org to reset your password.', 'info');
+        });
+
+        /* ── Step 2: Sign in ── */
+        document.getElementById('signInBtn').addEventListener('click', function () {
+            clearMsg('passMsg');
+            var password = document.getElementById('siPassword').value;
+            pendingRemember = document.getElementById('rememberMe').checked;
+
+            if (!password) {
+                showMsg('passMsg', 'Please enter your password.', 'error');
+                return;
+            }
+
+            var result = window.LBSAuth.checkCredentials(pendingEmail, password);
+
+            if (!result.valid) {
+                showMsg('passMsg', 'Incorrect email or password. Please try again.', 'error');
+                return;
+            }
+
+            if (result.needsPasswordChange) {
+                showStep('stepChangePass');
+                return;
+            }
+
+            if (result.needsTOTP) {
+                pendingTOTPSecret = result.totpSecret;
+                showStep('step2FA');
+                startTOTPCountdown();
+                return;
+            }
+
+            // All good — create session
+            window.LBSAuth.createSession('admin', pendingEmail, pendingRemember);
+            window.location.href = 'admin.html';
+        });
+
+        document.getElementById('siPassword').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') document.getElementById('signInBtn').click();
+        });
+
+        /* ── Step 3: 2FA OTP ── */
+        var digits = document.querySelectorAll('.otp-digit');
+        digits.forEach(function (inp, i) {
+            inp.addEventListener('input', function () {
+                var v = inp.value.replace(/[^0-9]/g, '');
+                inp.value = v.slice(-1);
+                if (v && i < digits.length - 1) digits[i + 1].focus();
+            });
+            inp.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace' && !inp.value && i > 0) digits[i - 1].focus();
+                if (e.key === 'Enter') document.getElementById('verifyTOTPBtn').click();
+            });
+            inp.addEventListener('paste', function (e) {
+                e.preventDefault();
+                var text = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+                text.split('').slice(0, 6).forEach(function (ch, j) {
+                    if (digits[j]) digits[j].value = ch;
+                });
+                var last = Math.min(text.length, 5);
+                digits[last].focus();
+            });
+        });
+
+        var countdownInterval;
+        function startTOTPCountdown() {
+            clearInterval(countdownInterval);
+            function tick() {
+                var rem = 30 - (Math.floor(Date.now() / 1000) % 30);
+                var el  = document.getElementById('totpCountdown');
+                if (el) el.textContent = rem;
+            }
+            tick();
+            countdownInterval = setInterval(tick, 1000);
+        }
+
+        document.getElementById('verifyTOTPBtn').addEventListener('click', async function () {
+            clearMsg('twoFAMsg');
+            var code = Array.from(digits).map(function (d) { return d.value; }).join('');
+            if (code.length < 6) {
+                showMsg('twoFAMsg', 'Please enter all 6 digits.', 'error');
+                return;
+            }
+            var btn = this;
+            btn.disabled    = true;
+            btn.textContent = 'Verifying…';
+
+            var ok = await window.LBSTOTP.verify(pendingTOTPSecret, code);
+            btn.disabled    = false;
+            btn.textContent = 'Verify & Sign in';
+
+            if (!ok) {
+                showMsg('twoFAMsg', 'Incorrect code. Check your authenticator app and try again.', 'error');
+                digits.forEach(function (d) { d.value = ''; });
+                digits[0].focus();
+                return;
+            }
+
+            clearInterval(countdownInterval);
+            window.LBSAuth.createSession('admin', pendingEmail, pendingRemember);
+            window.location.href = 'admin.html';
+        });
+
+        /* ── Step 4: Force password change ── */
+        document.getElementById('newPass').addEventListener('input', function () {
+            var val = this.value;
+            var score = 0;
+            if (val.length >= 8)  score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+            var fill   = document.getElementById('strengthFill');
+            var colors = ['#ef4444', '#f97316', '#eab308', '#22c55e'];
+            fill.style.width      = (score * 25) + '%';
+            fill.style.background = colors[score - 1] || '#e2e8f0';
+        });
+
+        document.getElementById('saveNewPassBtn').addEventListener('click', function () {
+            clearMsg('changePassMsg');
+            var np = document.getElementById('newPass').value;
+            var cp = document.getElementById('confirmPass').value;
+
+            if (np.length < 8) {
+                showMsg('changePassMsg', 'Password must be at least 8 characters.', 'error');
+                return;
+            }
+            if (np !== cp) {
+                showMsg('changePassMsg', 'Passwords do not match.', 'error');
+                return;
+            }
+
+            window.LBSAuth.changePassword(np);
+            window.LBSAuth.createSession('admin', pendingEmail, pendingRemember);
+            showMsg('changePassMsg', 'Password saved. Redirecting to dashboard…', 'success');
+            setTimeout(function () { window.location.href = 'admin.html'; }, 900);
+        });
+
+        /* ── Sign up ── */
+        document.getElementById('signUpBtn').addEventListener('click', function () {
+            clearMsg('signupMsg');
+            var name    = document.getElementById('suName').value.trim();
+            var email   = document.getElementById('suEmail').value.trim();
+            var pass    = document.getElementById('suPass').value;
+            var confirm = document.getElementById('suConfirm').value;
+
+            if (!name || !email || !pass) {
+                showMsg('signupMsg', 'Please fill in all required fields.', 'error');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showMsg('signupMsg', 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (pass.length < 8) {
+                showMsg('signupMsg', 'Password must be at least 8 characters.', 'error');
+                return;
+            }
+            if (pass !== confirm) {
+                showMsg('signupMsg', 'Passwords do not match.', 'error');
+                return;
+            }
+
+            window.LBSAuth.signup(name, email);
+            showMsg('signupMsg', 'Account created! Redirecting…', 'success');
+            setTimeout(function () { window.location.href = 'index.html'; }, 900);
+        });
+
     })();
     </script>
 </body>

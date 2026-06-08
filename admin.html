@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Light Beyond Sight</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-page">
+    <a href="#adminMain" class="skip-nav">Skip to main content</a>
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+        <div class="admin-topbar-brand">
+            Light Beyond Sight
+            <span class="admin-badge">Admin</span>
+        </div>
+        <div class="admin-topbar-actions">
+            <a href="index.html">View Site</a>
+            <a href="#" class="admin-logout-btn" id="adminLogoutBtn">Log out</a>
+        </div>
+    </div>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <nav class="admin-sidebar" aria-label="Admin navigation">
+            <span class="admin-sidebar-label">Content</span>
+            <button class="admin-nav-btn active" data-section="dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </button>
+            <button class="admin-nav-btn" data-section="news">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                News &amp; Events
+                <span class="admin-nav-badge" id="badgeNews">0</span>
+            </button>
+            <button class="admin-nav-btn" data-section="podcasts">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                Podcasts
+                <span class="admin-nav-badge" id="badgePodcasts">0</span>
+            </button>
+            <button class="admin-nav-btn" data-section="resources">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                Resources
+                <span class="admin-nav-badge" id="badgeResources">0</span>
+            </button>
+            <span class="admin-sidebar-label" style="margin-top:1rem;">Account</span>
+            <button class="admin-nav-btn" data-section="settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+            </button>
+        </nav>
+
+        <!-- Main content -->
+        <main class="admin-content" id="adminMain">
+
+            <!-- ── DASHBOARD ── -->
+            <section class="admin-section active" id="sectionDashboard">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">Dashboard</h1>
+                </div>
+                <div class="admin-stat-row">
+                    <div class="admin-stat-card accent">
+                        <div class="admin-stat-label">News &amp; Events</div>
+                        <div class="admin-stat-value" id="statPosts">—</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-label">Podcast Episodes</div>
+                        <div class="admin-stat-value" id="statPodcasts">—</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-label">Resources</div>
+                        <div class="admin-stat-value" id="statResources">—</div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-hd">
+                        <h2 class="admin-card-title">Recent posts</h2>
+                        <button class="btn btn-dark btn-xs" onclick="gotoSection('news')">View all</button>
+                    </div>
+                    <div id="dashRecentPosts"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-hd">
+                        <h2 class="admin-card-title">Recent resources</h2>
+                        <button class="btn btn-dark btn-xs" onclick="gotoSection('resources')">View all</button>
+                    </div>
+                    <div id="dashRecentResources"></div>
+                </div>
+            </section>
+
+            <!-- ── NEWS & EVENTS ── -->
+            <section class="admin-section" id="sectionNews">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">News &amp; Events</h1>
+                    <button class="btn btn-dark" id="addPostToggle">+ Add Post</button>
+                </div>
+
+                <!-- Add post form -->
+                <div class="admin-card" id="addPostCard" style="display:none;">
+                    <div class="admin-card-hd">
+                        <h2 class="admin-card-title">New Post</h2>
+                        <button class="btn btn-outline btn-xs" id="cancelAddPost">Cancel</button>
+                    </div>
+                    <form id="postForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pType">Category *</label>
+                                <select id="pType" required>
+                                    <option value="news">News / Announcement</option>
+                                    <option value="event">Upcoming Event</option>
+                                    <option value="volunteer">Volunteer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pDate">Date *</label>
+                                <input type="date" id="pDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pTitle">Title *</label>
+                            <input type="text" id="pTitle" placeholder="Post headline" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pBody">Body *</label>
+                            <textarea id="pBody" rows="4" placeholder="Post description…" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pLinkText">Link text</label>
+                                <input type="text" id="pLinkText" placeholder="e.g. Learn more">
+                            </div>
+                            <div class="form-group">
+                                <label for="pLink">Link URL</label>
+                                <input type="text" id="pLink" placeholder="e.g. contact.html">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Publish Post</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <div id="postsTableWrap"></div>
+                </div>
+            </section>
+
+            <!-- ── PODCASTS ── -->
+            <section class="admin-section" id="sectionPodcasts">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">Podcasts</h1>
+                    <button class="btn btn-dark" id="addEpToggle">+ Add Episode</button>
+                </div>
+
+                <div class="admin-card" id="addEpCard" style="display:none;">
+                    <div class="admin-card-hd">
+                        <h2 class="admin-card-title">New Episode</h2>
+                        <button class="btn btn-outline btn-xs" id="cancelAddEp">Cancel</button>
+                    </div>
+                    <form id="epForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="epDate">Publish Date *</label>
+                                <input type="date" id="epDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="epNumber">Episode No.</label>
+                                <input type="text" id="epNumber" placeholder="e.g. Ep. 12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="epTitle">Title *</label>
+                            <input type="text" id="epTitle" placeholder="Episode title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="epDesc">Description *</label>
+                            <textarea id="epDesc" rows="4" placeholder="Episode summary…" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="epDuration">Duration</label>
+                                <input type="text" id="epDuration" placeholder="e.g. 28 min">
+                            </div>
+                            <div class="form-group">
+                                <label for="epLink">Listen Link</label>
+                                <input type="text" id="epLink" placeholder="https://…">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Publish Episode</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <div id="podcastsTableWrap"></div>
+                </div>
+            </section>
+
+            <!-- ── RESOURCES ── -->
+            <section class="admin-section" id="sectionResources">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">Resources</h1>
+                    <button class="btn btn-dark" id="addResToggle">+ Add Resource</button>
+                </div>
+
+                <div class="admin-card" id="addResCard" style="display:none;">
+                    <div class="admin-card-hd">
+                        <h2 class="admin-card-title">New Resource</h2>
+                        <button class="btn btn-outline btn-xs" id="cancelAddRes">Cancel</button>
+                    </div>
+                    <form id="resForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resType">Type *</label>
+                                <select id="resType" required>
+                                    <option value="video">Video (YouTube / Vimeo)</option>
+                                    <option value="photo">Photo</option>
+                                    <option value="document">Document / PDF</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="resDate">Date *</label>
+                                <input type="date" id="resDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="resTitle">Title *</label>
+                            <input type="text" id="resTitle" placeholder="Resource title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="resDesc">Description</label>
+                            <textarea id="resDesc" rows="3" placeholder="Brief description…"></textarea>
+                        </div>
+                        <div class="form-group" id="resUrlGroup">
+                            <label for="resUrl" id="resUrlLabel">Video URL *</label>
+                            <input type="text" id="resUrl" placeholder="https://youtube.com/watch?v=…">
+                            <small style="color:#64748b;font-size:0.8125rem;display:block;margin-top:0.25rem;" id="resUrlHint">
+                                Paste a YouTube or Vimeo link — it will be embedded automatically.
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Publish Resource</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <div id="resourcesTableWrap"></div>
+                </div>
+            </section>
+
+            <!-- ── SETTINGS ── -->
+            <section class="admin-section" id="sectionSettings">
+                <div class="admin-section-hd">
+                    <h1 class="admin-section-title">Settings</h1>
+                </div>
+                <div class="settings-grid">
+
+                    <!-- Change password -->
+                    <div class="settings-card">
+                        <h3>Change Password</h3>
+                        <p class="settings-desc">Update your admin account password. Choose a strong password with uppercase letters, numbers, and symbols.</p>
+                        <form id="settingsPassForm" novalidate>
+                            <div class="form-group">
+                                <label for="stCurrentPass">Current password</label>
+                                <div class="password-field-wrap">
+                                    <input type="password" id="stCurrentPass" autocomplete="current-password">
+                                    <button type="button" class="password-toggle" id="stCurrToggle" aria-label="Show/hide">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="stNewPass">New password</label>
+                                <div class="password-field-wrap">
+                                    <input type="password" id="stNewPass" minlength="8" autocomplete="new-password">
+                                    <button type="button" class="password-toggle" id="stNewToggle" aria-label="Show/hide">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="stConfirmPass">Confirm new password</label>
+                                <input type="password" id="stConfirmPass" autocomplete="new-password">
+                            </div>
+                            <div class="auth-msg" id="settingsPassMsg"></div>
+                            <button type="submit" class="btn btn-dark">Update Password</button>
+                        </form>
+                    </div>
+
+                    <!-- 2FA -->
+                    <div class="settings-card">
+                        <h3>Two-Factor Authentication</h3>
+                        <p class="settings-desc">Require a one-time code from an authenticator app (Google Authenticator, Authy, etc.) every time you sign in.</p>
+                        <div id="totpStatus"></div>
+                        <div id="totpSetupArea"></div>
+                        <div class="auth-msg" id="totpMsg"></div>
+                    </div>
+
+                    <!-- Account info -->
+                    <div class="settings-card">
+                        <h3>Account</h3>
+                        <p class="settings-desc">Current admin account details.</p>
+                        <div style="font-family:'DM Sans',sans-serif;font-size:0.9375rem;color:#475569;">
+                            <div style="margin-bottom:0.5rem;"><strong style="color:#0f2744;">Email: </strong><span id="settingsEmail">—</span></div>
+                            <div><strong style="color:#0f2744;">Role: </strong>Administrator</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div><!-- /admin-layout -->
+
+    <script src="main.js"></script>
+    <script>
+    (function () {
+        /* ── Auth guard ── */
+        if (!window.LBSAuth || !window.LBSAuth.isAdmin()) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        /* ── Logout ── */
+        document.getElementById('adminLogoutBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.LBSAuth.logout();
+            window.location.href = 'login.html';
+        });
+
+        /* ── Section navigation ── */
+        function gotoSection(name) {
+            document.querySelectorAll('.admin-section').forEach(function (s) { s.classList.remove('active'); });
+            document.querySelectorAll('.admin-nav-btn').forEach(function (b) { b.classList.remove('active'); });
+            var sec = document.getElementById('section' + name.charAt(0).toUpperCase() + name.slice(1));
+            var btn = document.querySelector('[data-section="' + name + '"]');
+            if (sec) sec.classList.add('active');
+            if (btn) btn.classList.add('active');
+            if (name === 'dashboard') refreshDashboard();
+            if (name === 'news')      renderPostsTable();
+            if (name === 'podcasts')  renderPodcastsTable();
+            if (name === 'resources') renderResourcesTable();
+            if (name === 'settings')  initSettings();
+        }
+        window.gotoSection = gotoSection;
+
+        document.querySelectorAll('.admin-nav-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () { gotoSection(btn.dataset.section); });
+        });
+
+        /* ── Helpers ── */
+        function esc(str) {
+            var d = document.createElement('div');
+            d.textContent = String(str || '');
+            return d.innerHTML;
+        }
+        function fmtDate(str) {
+            try { return new Date(str + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }); }
+            catch (e) { return str || '—'; }
+        }
+        function showMsg(id, text, type) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = text;
+            el.className   = 'auth-msg ' + (type || 'error');
+        }
+        function clearMsg(id) {
+            var el = document.getElementById(id);
+            if (el) { el.textContent = ''; el.className = 'auth-msg'; }
+        }
+        function togglePass(inputId, btn) {
+            var inp = document.getElementById(inputId);
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+        }
+
+        /* ── Badge updates ── */
+        function updateBadges() {
+            var np = (window.LBSPosts.get()     || []).length;
+            var ne = (window.LBSPodcasts.get()  || []).length;
+            var nr = (window.LBSResources.get() || []).length;
+            document.getElementById('badgeNews').textContent      = np;
+            document.getElementById('badgePodcasts').textContent  = ne;
+            document.getElementById('badgeResources').textContent = nr;
+            document.getElementById('statPosts').textContent      = np;
+            document.getElementById('statPodcasts').textContent   = ne;
+            document.getElementById('statResources').textContent  = nr;
+        }
+
+        /* ── Dashboard ── */
+        function refreshDashboard() {
+            updateBadges();
+
+            // Recent posts
+            var posts = window.LBSPosts.get().slice(0, 5);
+            var drp   = document.getElementById('dashRecentPosts');
+            if (!posts.length) {
+                drp.innerHTML = '<p class="admin-table-empty">No posts yet.</p>';
+            } else {
+                drp.innerHTML = '<table class="admin-table"><thead><tr><th>Title</th><th>Type</th><th>Date</th></tr></thead><tbody>' +
+                    posts.map(function (p) {
+                        return '<tr><td class="td-title">' + esc(p.title) + '</td><td>' + esc(p.type) + '</td><td>' + fmtDate(p.date) + '</td></tr>';
+                    }).join('') + '</tbody></table>';
+            }
+
+            // Recent resources
+            var res  = window.LBSResources.get().slice(0, 5);
+            var drr  = document.getElementById('dashRecentResources');
+            if (!res.length) {
+                drr.innerHTML = '<p class="admin-table-empty">No resources yet.</p>';
+            } else {
+                drr.innerHTML = '<table class="admin-table"><thead><tr><th>Title</th><th>Type</th><th>Date</th></tr></thead><tbody>' +
+                    res.map(function (r) {
+                        return '<tr><td class="td-title">' + esc(r.title) + '</td><td>' + esc(r.type) + '</td><td>' + fmtDate(r.date) + '</td></tr>';
+                    }).join('') + '</tbody></table>';
+            }
+        }
+
+        /* ── NEWS & EVENTS ── */
+        document.getElementById('addPostToggle').addEventListener('click', function () {
+            var card = document.getElementById('addPostCard');
+            card.style.display = card.style.display === 'none' ? 'block' : 'none';
+        });
+        document.getElementById('cancelAddPost').addEventListener('click', function () {
+            document.getElementById('addPostCard').style.display = 'none';
+        });
+
+        document.getElementById('postForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var title = document.getElementById('pTitle').value.trim();
+            var body  = document.getElementById('pBody').value.trim();
+            var date  = document.getElementById('pDate').value;
+            if (!title || !body || !date) { alert('Please fill in all required fields.'); return; }
+            window.LBSPosts.add({
+                type:     document.getElementById('pType').value,
+                date:     date,
+                title:    title,
+                body:     body,
+                linkText: document.getElementById('pLinkText').value,
+                link:     document.getElementById('pLink').value
+            });
+            this.reset();
+            document.getElementById('addPostCard').style.display = 'none';
+            renderPostsTable();
+            updateBadges();
+        });
+
+        function renderPostsTable() {
+            var posts = window.LBSPosts.get();
+            var wrap  = document.getElementById('postsTableWrap');
+            if (!posts.length) {
+                wrap.innerHTML = '<p class="admin-table-empty">No posts yet. Click "+ Add Post" to create one.</p>';
+                return;
+            }
+            wrap.innerHTML = '<table class="admin-table"><thead><tr>' +
+                '<th>Title</th><th>Type</th><th>Date</th><th>Link</th><th></th>' +
+                '</tr></thead><tbody>' +
+                posts.map(function (p) {
+                    return '<tr>' +
+                        '<td class="td-title">' + esc(p.title) + '</td>' +
+                        '<td>' + esc(p.type) + '</td>' +
+                        '<td style="white-space:nowrap">' + fmtDate(p.date) + '</td>' +
+                        '<td>' + (p.link ? '<a href="' + esc(p.link) + '" style="color:#1e3c72;font-size:0.8125rem;">' + esc(p.linkText || 'Link') + '</a>' : '—') + '</td>' +
+                        '<td class="td-actions"><button class="btn-danger" data-id="' + p.id + '" data-store="posts">Delete</button></td>' +
+                        '</tr>';
+                }).join('') + '</tbody></table>';
+            bindDeleteBtns(wrap);
+        }
+
+        /* ── PODCASTS ── */
+        document.getElementById('addEpToggle').addEventListener('click', function () {
+            var card = document.getElementById('addEpCard');
+            card.style.display = card.style.display === 'none' ? 'block' : 'none';
+        });
+        document.getElementById('cancelAddEp').addEventListener('click', function () {
+            document.getElementById('addEpCard').style.display = 'none';
+        });
+
+        document.getElementById('epForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var title = document.getElementById('epTitle').value.trim();
+            var desc  = document.getElementById('epDesc').value.trim();
+            var date  = document.getElementById('epDate').value;
+            if (!title || !desc || !date) { alert('Please fill in all required fields.'); return; }
+            window.LBSPodcasts.add({
+                date:        date,
+                number:      document.getElementById('epNumber').value,
+                title:       title,
+                description: desc,
+                duration:    document.getElementById('epDuration').value,
+                link:        document.getElementById('epLink').value
+            });
+            this.reset();
+            document.getElementById('addEpCard').style.display = 'none';
+            renderPodcastsTable();
+            updateBadges();
+        });
+
+        function renderPodcastsTable() {
+            var eps  = window.LBSPodcasts.get();
+            var wrap = document.getElementById('podcastsTableWrap');
+            if (!eps.length) {
+                wrap.innerHTML = '<p class="admin-table-empty">No episodes yet. Click "+ Add Episode" to create one.</p>';
+                return;
+            }
+            wrap.innerHTML = '<table class="admin-table"><thead><tr>' +
+                '<th>Title</th><th>Ep.</th><th>Date</th><th>Duration</th><th></th>' +
+                '</tr></thead><tbody>' +
+                eps.map(function (p) {
+                    return '<tr>' +
+                        '<td class="td-title">' + esc(p.title) + '</td>' +
+                        '<td>' + (p.number ? esc(p.number) : '—') + '</td>' +
+                        '<td style="white-space:nowrap">' + fmtDate(p.date) + '</td>' +
+                        '<td>' + (p.duration ? esc(p.duration) : '—') + '</td>' +
+                        '<td class="td-actions"><button class="btn-danger" data-id="' + p.id + '" data-store="podcasts">Delete</button></td>' +
+                        '</tr>';
+                }).join('') + '</tbody></table>';
+            bindDeleteBtns(wrap);
+        }
+
+        /* ── RESOURCES ── */
+        var resTypeSelect = document.getElementById('resType');
+        var resUrlLabel   = document.getElementById('resUrlLabel');
+        var resUrlHint    = document.getElementById('resUrlHint');
+        var resUrlInput   = document.getElementById('resUrl');
+
+        resTypeSelect.addEventListener('change', function () {
+            var t = this.value;
+            if (t === 'video') {
+                resUrlLabel.textContent = 'Video URL *';
+                resUrlHint.textContent  = 'Paste a YouTube or Vimeo link — it will be embedded automatically.';
+                resUrlInput.placeholder = 'https://youtube.com/watch?v=…';
+            } else if (t === 'photo') {
+                resUrlLabel.textContent = 'Image URL *';
+                resUrlHint.textContent  = 'Link to an image hosted on Google Drive, Dropbox, Imgur, etc.';
+                resUrlInput.placeholder = 'https://i.imgur.com/…';
+            } else {
+                resUrlLabel.textContent = 'Document URL *';
+                resUrlHint.textContent  = 'Link to a PDF or document (Google Drive, Dropbox, etc.)';
+                resUrlInput.placeholder = 'https://drive.google.com/…';
+            }
+        });
+
+        document.getElementById('addResToggle').addEventListener('click', function () {
+            var card = document.getElementById('addResCard');
+            card.style.display = card.style.display === 'none' ? 'block' : 'none';
+        });
+        document.getElementById('cancelAddRes').addEventListener('click', function () {
+            document.getElementById('addResCard').style.display = 'none';
+        });
+
+        document.getElementById('resForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var title = document.getElementById('resTitle').value.trim();
+            var date  = document.getElementById('resDate').value;
+            var url   = document.getElementById('resUrl').value.trim();
+            if (!title || !date) { alert('Please fill in all required fields.'); return; }
+            window.LBSResources.add({
+                type:  document.getElementById('resType').value,
+                date:  date,
+                title: title,
+                description: document.getElementById('resDesc').value.trim(),
+                url:   url
+            });
+            this.reset();
+            resTypeSelect.dispatchEvent(new Event('change'));
+            document.getElementById('addResCard').style.display = 'none';
+            renderResourcesTable();
+            updateBadges();
+        });
+
+        function renderResourcesTable() {
+            var items = window.LBSResources.get();
+            var wrap  = document.getElementById('resourcesTableWrap');
+            if (!items.length) {
+                wrap.innerHTML = '<p class="admin-table-empty">No resources yet. Click "+ Add Resource" to create one.</p>';
+                return;
+            }
+            wrap.innerHTML = '<table class="admin-table"><thead><tr>' +
+                '<th>Title</th><th>Type</th><th>Date</th><th>URL</th><th></th>' +
+                '</tr></thead><tbody>' +
+                items.map(function (r) {
+                    return '<tr>' +
+                        '<td class="td-title">' + esc(r.title) + '</td>' +
+                        '<td>' + esc(r.type) + '</td>' +
+                        '<td style="white-space:nowrap">' + fmtDate(r.date) + '</td>' +
+                        '<td>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener" style="color:#1e3c72;font-size:0.8125rem;">View</a>' : '—') + '</td>' +
+                        '<td class="td-actions"><button class="btn-danger" data-id="' + r.id + '" data-store="resources">Delete</button></td>' +
+                        '</tr>';
+                }).join('') + '</tbody></table>';
+            bindDeleteBtns(wrap);
+        }
+
+        /* ── Delete handler ── */
+        function bindDeleteBtns(wrap) {
+            wrap.querySelectorAll('.btn-danger[data-store]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    if (!confirm('Delete this item? This cannot be undone.')) return;
+                    var store = btn.dataset.store;
+                    if (store === 'posts')     window.LBSPosts.remove(btn.dataset.id);
+                    if (store === 'podcasts')  window.LBSPodcasts.remove(btn.dataset.id);
+                    if (store === 'resources') window.LBSResources.remove(btn.dataset.id);
+                    if (store === 'posts')     renderPostsTable();
+                    if (store === 'podcasts')  renderPodcastsTable();
+                    if (store === 'resources') renderResourcesTable();
+                    updateBadges();
+                });
+            });
+        }
+
+        /* ── SETTINGS ── */
+        function initSettings() {
+            var cfg = window.LBSAuth.getConfig();
+            document.getElementById('settingsEmail').textContent = cfg.email;
+            renderTOTPStatus();
+        }
+
+        document.getElementById('stCurrToggle').addEventListener('click', function () { togglePass('stCurrentPass', this); });
+        document.getElementById('stNewToggle').addEventListener('click',  function () { togglePass('stNewPass',      this); });
+
+        document.getElementById('settingsPassForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            clearMsg('settingsPassMsg');
+            var cfg     = window.LBSAuth.getConfig();
+            var current = document.getElementById('stCurrentPass').value;
+            var newp    = document.getElementById('stNewPass').value;
+            var conf    = document.getElementById('stConfirmPass').value;
+
+            if (current !== cfg.password) {
+                showMsg('settingsPassMsg', 'Current password is incorrect.', 'error'); return;
+            }
+            if (newp.length < 8) {
+                showMsg('settingsPassMsg', 'New password must be at least 8 characters.', 'error'); return;
+            }
+            if (newp !== conf) {
+                showMsg('settingsPassMsg', 'Passwords do not match.', 'error'); return;
+            }
+            window.LBSAuth.changePassword(newp);
+            this.reset();
+            showMsg('settingsPassMsg', 'Password updated successfully.', 'success');
+        });
+
+        /* ── 2FA settings ── */
+        function renderTOTPStatus() {
+            var cfg        = window.LBSAuth.getConfig();
+            var statusEl   = document.getElementById('totpStatus');
+            var setupEl    = document.getElementById('totpSetupArea');
+            clearMsg('totpMsg');
+
+            if (cfg.totpEnabled) {
+                statusEl.innerHTML = '<span class="totp-status on">&#10003; Enabled</span>';
+                setupEl.innerHTML  =
+                    '<p style="font-size:0.875rem;color:#64748b;margin-bottom:1rem;">Two-factor authentication is active on your account.</p>' +
+                    '<button class="btn btn-outline btn-xs" id="disableTOTPBtn">Disable 2FA</button>';
+                document.getElementById('disableTOTPBtn').addEventListener('click', function () {
+                    if (!confirm('Disable two-factor authentication? Your account will be less secure.')) return;
+                    window.LBSAuth.disableTOTP();
+                    showMsg('totpMsg', '2FA has been disabled.', 'info');
+                    renderTOTPStatus();
+                });
+            } else {
+                statusEl.innerHTML = '<span class="totp-status off">Not enabled</span>';
+                setupEl.innerHTML  =
+                    '<button class="btn btn-dark btn-xs" id="setupTOTPBtn">Set up 2FA</button>' +
+                    '<div id="totpSetupFlow" style="display:none;margin-top:1.25rem;"></div>';
+                document.getElementById('setupTOTPBtn').addEventListener('click', startTOTPSetup);
+            }
+        }
+
+        function startTOTPSetup() {
+            var cfg    = window.LBSAuth.getConfig();
+            var secret = window.LBSTOTP.generateSecret();
+            var qr     = window.LBSTOTP.qrUrl(secret, cfg.email);
+            var flow   = document.getElementById('totpSetupFlow');
+            flow.style.display = 'block';
+            flow.innerHTML =
+                '<p style="font-size:0.875rem;color:#1e293b;margin-bottom:0.75rem;">Scan this QR code with Google Authenticator, Authy, or any TOTP app:</p>' +
+                '<div class="totp-setup-qr"><img src="' + qr + '" width="180" height="180" alt="2FA QR code"></div>' +
+                '<p style="font-size:0.8rem;color:#64748b;margin-bottom:0.25rem;">Can\'t scan? Enter this key manually:</p>' +
+                '<div class="totp-secret-box">' + secret + '</div>' +
+                '<p style="font-size:0.875rem;color:#1e293b;margin:0.875rem 0 0.5rem;">Enter the 6-digit code to verify:</p>' +
+                '<div class="otp-wrap" id="setupOTPWrap">' +
+                [1,2,3,4,5,6].map(function (n) {
+                    return '<input type="number" class="otp-digit" maxlength="1" inputmode="numeric" aria-label="Digit ' + n + '">';
+                }).join('') +
+                '</div>' +
+                '<div class="auth-msg" id="setupOTPMsg"></div>' +
+                '<button class="btn btn-dark" id="confirmTOTPBtn">Confirm &amp; Enable 2FA</button>';
+
+            // Wire up OTP digits
+            var setupDigits = flow.querySelectorAll('.otp-digit');
+            setupDigits.forEach(function (inp, i) {
+                inp.addEventListener('input', function () {
+                    var v = inp.value.replace(/[^0-9]/g, '');
+                    inp.value = v.slice(-1);
+                    if (v && i < setupDigits.length - 1) setupDigits[i+1].focus();
+                });
+                inp.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace' && !inp.value && i > 0) setupDigits[i-1].focus();
+                });
+            });
+
+            document.getElementById('confirmTOTPBtn').addEventListener('click', async function () {
+                var code = Array.from(setupDigits).map(function (d) { return d.value; }).join('');
+                if (code.length < 6) {
+                    showMsg('setupOTPMsg', 'Enter all 6 digits.', 'error'); return;
+                }
+                var btn = this;
+                btn.disabled    = true;
+                btn.textContent = 'Verifying…';
+                var ok = await window.LBSTOTP.verify(secret, code);
+                btn.disabled    = false;
+                btn.textContent = 'Confirm & Enable 2FA';
+                if (!ok) {
+                    showMsg('setupOTPMsg', 'Code incorrect. Try again — make sure your device time is accurate.', 'error');
+                    setupDigits.forEach(function (d) { d.value = ''; });
+                    setupDigits[0].focus();
+                    return;
+                }
+                window.LBSAuth.setupTOTP(secret);
+                showMsg('totpMsg', '2FA enabled. You\'ll be asked for a code on your next login.', 'success');
+                renderTOTPStatus();
+            });
+        }
+
+        /* ── Init ── */
+        updateBadges();
+        refreshDashboard();
+
+    })();
+    </script>
+</body>
+</html>
