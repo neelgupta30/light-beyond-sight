@@ -2355,24 +2355,32 @@ footer {
 }
 
 /* ---- Site logo ---- */
-.logo a {
+.logo a,
+.logo a:link,
+.logo a:visited {
     display: flex;
     align-items: center;
     gap: 0.625rem;
     text-decoration: none;
+    color: #fff;
+}
+
+/* Circle container — overflow:hidden on a div reliably clips the image */
+.nav-logo-circle {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .nav-logo-img {
-    height: 52px !important;
-    width: 52px !important;
-    max-height: 52px !important;
-    max-width: 52px !important;
+    width: 100% !important;
+    height: 100% !important;
     display: block;
-    flex-shrink: 0;
     object-fit: cover;
     object-position: 50% 22%;
-    border-radius: 50%;
-    overflow: hidden;
 }
 
 .nav-logo-text {
@@ -2385,17 +2393,21 @@ footer {
     white-space: nowrap;
 }
 
-.footer-logo-img {
-    height: 56px !important;
-    width: 56px !important;
-    max-height: 56px !important;
-    max-width: 56px !important;
-    display: block;
-    margin-bottom: 1rem;
-    object-fit: cover;
-    object-position: 50% 22%;
+.footer-logo-circle {
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     overflow: hidden;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.footer-logo-img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    object-fit: cover;
+    object-position: 50% 22%;
 }
 
 .login-brand-logo-img {
