@@ -142,18 +142,14 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: 9000;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
 }
 
 .dm-overlay.active {
-    opacity: 1;
-    pointer-events: all;
+    display: flex;
 }
 
 .dm-card {
@@ -165,12 +161,8 @@ h1, h2, h3, h4, h5, h6 {
     overflow-y: auto;
     box-shadow: 0 24px 64px rgba(0,0,0,0.3);
     border-top: 5px solid #c9973b;
-    transform: translateY(20px);
-    transition: transform 0.25s;
     scrollbar-width: thin;
 }
-
-.dm-overlay.active .dm-card { transform: translateY(0); }
 
 .dm-header {
     display: flex;
@@ -2393,22 +2385,7 @@ footer {
     white-space: nowrap;
 }
 
-.footer-logo-circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-}
-
-.footer-logo-img {
-    width: 100% !important;
-    height: 100% !important;
-    display: block;
-    object-fit: cover;
-    object-position: 50% 22%;
-}
+/* footer uses text logo — no img needed */
 
 .login-brand-logo-img {
     height: 64px;
