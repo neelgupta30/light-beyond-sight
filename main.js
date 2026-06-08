@@ -55,11 +55,11 @@
     }
 
     // ============================================================
-    // Auth  (admin@lightbeyondsight.com / admin  — change on first login)
+    // Auth  (admin@lightbeyondsight.org / admin  — change on first login)
     // ============================================================
     window.LBSAuth = {
         _defaults: {
-            email:              'admin@lightbeyondsight.com',
+            email:              'admin@lightbeyondsight.org',
             password:           'admin',
             mustChangePassword: true,
             totpEnabled:        false,
